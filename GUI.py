@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter import filedialog
-
+from tkinter import messagebox as MessageBox
 
 def centrar_ventana(app, ancho, alto):
     app.config(width=ancho, height=alto)  # linen - light cyan - ghost white WhiteSmoke
@@ -19,6 +19,24 @@ def configuracion_defecto(app):
     app.iconbitmap('./images/blockchain_.ico')
 
 
+def ventana_imagen(imagen):
+    app = Toplevel()
+    configuracion_defecto(app)
+    app.state('zoomed')
+
+    img = PhotoImage(file='./images/'+imagen+'')
+    label = Label(app, image=img)
+    label.image = img
+    label.grid(row=0, column=0)
+
+
+def fondo(app):
+    img = PhotoImage(file='./images/fondo.png')
+    label = Label(app, image=img, bg="#F0FFFF")
+    label.image = img
+    label.grid(row=0, column=0)
+
+
 def ventana_principal():
     # Raíz de la aplicación
     app = Tk()
@@ -33,7 +51,7 @@ def ventana_principal():
 
     # Botones
     img_db = PhotoImage(file="./images/base-de-datos.png")
-    db = Button(text="Bases de datos",  bg="#FFFFFF", image=img_db, compound="top", font=("Georgia", 16), command=ventana_db)
+    db = Button(text="Bases de datos",  bg="#FFFFFF", image=img_db, compound="top", font=("Georgia", 16), command=lambda: ventana_db(''))
     db.place(x=500, y=200)
 
     img_subir = PhotoImage(file="./images/subir.png")
@@ -41,7 +59,7 @@ def ventana_principal():
     db.place(x=600, y=400)
 
     # Selección del combobox
-    def selection_changed( event):
+    def selection_changed(event):
         combo_bases_db(combo.get())
 
     # Combobox
@@ -51,7 +69,7 @@ def ventana_principal():
 
     combo["values"] = ["createDatabase", "showDatabases", "alterDatabase", "dropDatabase"]
     combo.bind("<<ComboboxSelected>>", selection_changed)
-    etiqueta = Label(text="Funciones", bg=color, font=("Georgia", 16)).place(x=720, y=225)
+    Label(text="Funciones", bg=color, font=("Georgia", 16)).place(x=720, y=225)
 
     # ---------------------------------------------------- FUNCIONES ---------------------------------------------------
     # SELECCIÓN COMBOBOX
@@ -68,10 +86,18 @@ def ventana_principal():
     app.mainloop()
 
 
-def ventana_db():
+def ventana_db(ventana):
+    if ventana != '':
+        ventana.withdraw()
     app2 = Toplevel()
     configuracion_defecto(app2)
     centrar_ventana(app2, 500, 700)
+    app2.configure(bg="#F0FFFF")
+
+    img = PhotoImage(file='./images/base-de-datos2.png')
+    label = Label(app2, image=img, bg="#F0FFFF")
+    label.image = img
+    label.place(x=120, y=30)
 
     # Selección del combobox
     def selection_changed(event):
@@ -80,11 +106,16 @@ def ventana_db():
     # Combobox
     fuente = ("Georgia", 10)
     combo = ttk.Combobox(app2, font=fuente)
-    combo.place(x=150, y=200)
+    combo.place(x=150, y=330)
 
-    etiqueta = Label(app2, text="Seleccionar DB", bg="#F0FFFF", font=("Georgia", 13)).place(x=180, y=170)
-    combo["values"] = ["lista de DB"]
+    Label(app2, text="Seleccionar DB",  bg="#F0FFFF", font=("Georgia", 13)).place(x=180, y=300)
+    combo["values"] = ["DB1"]
     combo.bind("<<ComboboxSelected>>", selection_changed)
+
+    # Obtener imagen de la lista de db
+    img = 'Alien.png'
+    boton_estructura = Button(app2, text="Ver estructura", bg="#FFFFFF", compound="top", font=("Georgia", 10), command=lambda: ventana_imagen(img))
+    boton_estructura.place(x=380, y=5)
 
 
 def ventana_lista_tablas(ventana, db):
@@ -93,28 +124,74 @@ def ventana_lista_tablas(ventana, db):
     configuracion_defecto(app)
     centrar_ventana(app, 500, 700)
 
+    img = PhotoImage(file='./images/base-de-datos3.png')
+    label = Label(app, image=img, bg="#F0FFFF")
+    label.image = img
+    label.place(x=120, y=30)
+
     # Selección del combobox
     def selection_changed(event):
+        ventana_tupla(app, combo.get(), db)
         print(combo.get())
 
     # Combobox
     fuente = ("Georgia", 10)
     combo = ttk.Combobox(app, font=fuente)
-    combo.place(x=150, y=200)
+    combo.place(x=150, y=350)
 
-    etiqueta = Label(app, text="Tablas de DB: "+db, bg="#F0FFFF", font=("Georgia", 13)).place(x=150, y=170)
+    Label(app, text="Tuplas de DB:\n"+db, bg="#F0FFFF", font=("Georgia", 13)).place(x=190, y=300)
     combo["values"] = ["lista de tablas"]
     combo.bind("<<ComboboxSelected>>", selection_changed)
 
+    # Obtener imagen de la lista de db
+    img = 'fondo.png'
+    boton_estructura = Button(app, text="Ver estructura", bg="#FFFFFF", compound="top", font=("Georgia", 10), command=lambda: ventana_imagen(img))
+    boton_estructura.place(x=380, y=5)
+
+    boton_regresar = Button(app, text="Regresar", bg="#FFFFFF", compound="top", font=("Georgia", 10), command=lambda: ventana_db(app))
+    boton_regresar.place(x=10, y=5)
+
     # ---------------------------------------------------- FUNCIONES ---------------------------------------------------
     def cargar_tablas(combo_box):
-        # Cargar datos
+        # Cargar datos de prueba
         array = []
-        for i in range(0, 10):
+        for i in range(0, 100):
             array.append(i)
         combo_box['values'] = array
 
     cargar_tablas(combo)
+
+
+def ventana_tupla(ventana, tupla, db):
+    if ventana != '':
+        ventana.withdraw()
+    app = Toplevel()
+    configuracion_defecto(app)
+    centrar_ventana(app, 500, 700)
+
+    img = PhotoImage(file='./images/B+.png')
+    label = Label(app, image=img, bg="#F0FFFF")
+    label.image = img
+    label.place(x=95, y=25)
+
+    # Combobox
+    def selection_changed(event):
+        mensaje = combo.get()+'\nnombre: Kevin\n'+'Apellido: Sandoval'
+        MessageBox.showinfo(tupla, mensaje)  # título, mensaje
+        ventana_tupla('', tupla, db)
+
+    combo = ttk.Combobox(app, font=("Georgia", 10))
+    combo.place(x=150, y=300)
+
+    Label(app, text="Registro de la tupla:\n" + tupla, bg="#F0FFFF", font=("Georgia", 13)).place(x=180, y=250)
+    combo["values"] = ['Registro1', 'Registro2', 'Registro3']
+    combo.bind("<<ComboboxSelected>>", selection_changed)
+
+    img = 'B+.png'
+    boton_estructura = Button(app, text="Ver estructura", bg="#FFFFFF", compound="top", font=("Georgia", 10), command=lambda: ventana_imagen(img))
+    boton_estructura.place(x=380, y=5)
+    boton_regresar = Button(app, text="Regresar", bg="#FFFFFF", compound="top", font=("Georgia", 10), command=lambda: ventana_lista_tablas(app, db))
+    boton_regresar.place(x=10, y=5)
 
 
 # CARGAR ARCHIVO
