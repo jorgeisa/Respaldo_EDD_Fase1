@@ -4,6 +4,7 @@ from AVL_DB import AVL_DB as AvlDb
 from AVL_TABLE import AVL_TABLE as AvlT
 
 DataBase = AvlDb()
+pattern = r'[_]*[A-Za-z]+[_]*[_0-9]*[_]*'
 
 
 def createDatabase(nameDb):
@@ -26,7 +27,7 @@ def showDatabases():
 
 
 def alterDatabase(databaseOld, databaseNew):
-    if re.match(r'[_]*[A-Za-z]+[_]*[_0-9]*[_]*', databaseNew):
+    if (re.match(pattern, databaseOld)) and (re.match(pattern, databaseNew)):
         db = DataBase.buscar(str(databaseOld))
         db_new = DataBase.buscar(str(databaseNew))
 
@@ -34,11 +35,12 @@ def alterDatabase(databaseOld, databaseNew):
             return 2
         elif db_new is not None:
             return 3
-        elif db is not None:
-            if DataBase.actualizar(databaseOld, databaseNew) == 'exito':
-                return 0
-            else:
-                return 1
+        else:
+            if db is not None:
+                if DataBase.actualizar(databaseOld, databaseNew) == 'exito':
+                    return 0
+                else:
+                    return 1
     else:
         return 1
 
@@ -54,21 +56,23 @@ def dropDatabase(database):
     else:
         return 1
 
-
 def alterTable(database, tableOld, tableNew):
-    db = DataBase.buscar(database)
-    table = db.valor.buscar(tableOld)
-    tabla_new = db.valor.buscar(tableNew)
+    if re.match(pattern, database):
+        db = DataBase.buscar(database)
+        table = db.valor.buscar(tableOld)
+        tabla_new = db.valor.buscar(tableNew)
 
-    if db is None:
-        return 2
-    elif table is None:
-        return 3
-    elif tabla_new is not None:
-        return 4
+        if db is None:
+            return 2
+        elif table is None:
+            return 3
+        elif tabla_new is not None:
+            return 4
+        else:
+            if table is not None:
+                if db.valor.actualizar(tableOld, tableNew) == 'exito':
+                    return 0
+                else:
+                    return 1
     else:
-        if table is not None:
-            if db.valor.actualizar(tableOld, tableNew) == 'exito':
-                return 0
-            else:
-                return 1
+        return 1
