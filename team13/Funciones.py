@@ -46,7 +46,7 @@ def alterDatabase(databaseOld, databaseNew):
 
 
 def dropDatabase(database):
-    if re.match(r'[_]*[A-Za-z]+[_]*[_0-9]*[_]*', database):
+    if re.match(pattern, database):
         dataB = DataBase.buscar(str(database))
         if dataB is None:
             return 2
@@ -55,6 +55,7 @@ def dropDatabase(database):
             return 0
     else:
         return 1
+
 
 def alterTable(database, tableOld, tableNew):
     if re.match(pattern, database):
