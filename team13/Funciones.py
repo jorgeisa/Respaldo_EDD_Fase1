@@ -1,7 +1,7 @@
 from os import name
 import re
-from AVL_DB import Avl as AvlDb
-from AVL_Table import Avl as AvlT
+from AVL_DB import AVL_DB as AvlDb
+from AVL_Table import AVL_TABLE as AvlT
 
 DataBase = AvlDb()
 
@@ -23,17 +23,34 @@ def showDatabases():
     return lista
 
 def alterDatabase(databaseOld, databaseNew):
-    if re.match(r'[_]?[A-Za-z]+[_]?[_0-9]*[_]?', databaseNew):
-        db = DataBase.buscar(str(databaseOld))
-        db_new = DataBase.buscar(str(databaseNew))
-        if db is None:
-            return 2
-        elif db_new is not None:
-            return 3
-        elif db is not None:
-            db.name = databaseNew
+    db = DataBase.buscar(str(databaseOld))
+    db_new = DataBase.buscar(str(databaseNew))
+
+    if db is None:
+        return 2
+    elif db_new is not None:
+        return 3
+    elif db is not None:
+        if DataBase.actualizar(databaseOld, databaseNew) == 'exito':
             return 0
         else:
             return 1
+
+
+def alterTable(database, tableOld, tableNew):
+    db = DataBase.buscar(database)
+    table = db.valor.buscar(tableOld)
+    tabla_new = db.valor.buscar(tableNew)
+
+    if db is None:
+        return 2
+    elif table is None:
+        return 3
+    elif tabla_new is not None:
+        return 4
     else:
-        return 1
+        if table is not None:
+            if db.valor.actualizar(tableOld, tableNew) == 'exito':
+                return 0
+            else:
+                return 1
