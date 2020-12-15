@@ -1,4 +1,6 @@
-class TreeBPlus:
+from graphviz import Digraph
+
+class BPlus_Tuple:
     
     def __init__(self, grade):
         if grade < 3:
