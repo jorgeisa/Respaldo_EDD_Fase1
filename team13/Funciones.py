@@ -16,9 +16,8 @@ def createDatabase(nameDb):
             DataBase.insertar(tabla, nameDb)
             return 0
         elif busqueda != None:
-            return 2
-    else:
-        return 1
+            return 2  
+    return 1
 
 
 def showDatabases():
@@ -103,6 +102,17 @@ def alterTable(database, tableOld, tableNew):
     else:
         return 1
 
+
+def dropTable(database,table):
+    BaseDatos = DataBase.buscar(database)
+    Tabla = BaseDatos.avlTable.buscar(table)
+    if Tabla != None:
+        BaseDatos.avlTable.eliminar(table)
+        return 0
+    elif Tabla == None:
+        return 2
+    return 1
+
 # FUNCIONALIDADES APARTE
 
 
@@ -116,4 +126,3 @@ def graficarTablas(database):
             avl.graficar()
             return 1
         return avl
-
