@@ -239,8 +239,8 @@ class AVL_DB:
         nodo = self.buscar(valor_actual)
 
         if nodo is not None:
-            self.eliminar(nodo.name)
             self.insertar(nodo.valor, nuevo_valor)
+            self.eliminar(nodo.name)            
             return 'exito'
         else:
             return 'error'
