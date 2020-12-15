@@ -81,27 +81,29 @@ def showTables(database):
         return tablas
     return dataB
 
+
 def alterTable(database, tableOld, tableNew):
     if re.match(pattern, database):
         db = DataBase.buscar(database)
-        table = db.valor.buscar(tableOld)
-        tabla_new = db.valor.buscar(tableNew)
 
         if db is None:
             return 2
-        elif table is None:
-            return 3
-        elif tabla_new is not None:
-            return 4
         else:
-            if table is not None:
-                if db.valor.actualizar(tableOld, tableNew) == 'exito':
-                    return 0
-                else:
-                    return 1
+            table = db.avlTable.buscar(tableOld)
+            table_new = db.avlTable.buscar(tableNew)
+
+            if table is None:
+                return 3
+            elif table_new is not None:
+                return 4
+            else:
+                if table is not None:
+                    if db.avlTable.actualizar(tableOld, tableNew) == 'exito':
+                        return 0
+                    else:
+                        return 1
     else:
         return 1
-
 
 def dropTable(database,table):
     BaseDatos = DataBase.buscar(database)
