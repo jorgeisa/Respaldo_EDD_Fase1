@@ -1,7 +1,7 @@
 from os import name
 import re
 from AVL_DB import AVL_DB as AvlDb
-from AVL_Table import AVL_TABLE as AvlT
+from AVL_TABLE import AVL_TABLE as AvlT
 
 DataBase = AvlDb()
 

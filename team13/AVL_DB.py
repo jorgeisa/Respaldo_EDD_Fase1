@@ -1,4 +1,4 @@
-from AVL_Table import AVL_TABLE as AvlT
+from AVL_TABLE import AVL_TABLE as AvlT
 import os
 
 class Nodo:
