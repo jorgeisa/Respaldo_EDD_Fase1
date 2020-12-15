@@ -10,7 +10,7 @@ class Nodo:
         self.factor = 1
 
 
-class Avl:
+class AVL_TABLE:
 
     def __init__(self):
         self.raiz = None
@@ -107,7 +107,7 @@ class Avl:
             elif raiz.der != None and raiz.izq != None:
                 valores = self.__caso2(raiz.izq)
                 raiz.izq = valores.nodo
-                raiz.valor = valores.valor
+                raiz.name = valores.valor
                 return raiz
             #Nodo con un hijo
             elif raiz.der != None or raiz.izq != None:
@@ -217,3 +217,27 @@ class Avl:
         bases += str(self.__recorrido(nodo.der))
 
         return bases
+    
+        # Metodo para buscar
+    def buscar(self, name):
+        resultado = self.__buscar(name, self.raiz)
+        return resultado
+
+    def __buscar(self, name, nodo):
+        if nodo is not None:
+            if name < nodo.name:
+                nodo = self.__buscar(name, nodo.izq)
+            elif name > nodo.name:
+                nodo = self.__buscar(name, nodo.der)
+        return nodo
+
+    # Metodo para actualizar
+    def actualizar(self, valor_actual, nuevo_valor):
+        nodo = self.buscar(valor_actual)
+
+        if nodo is not None:
+            self.eliminar(nodo.name)
+            self.insertar(nodo.valor, nuevo_valor)
+            return 'exito'
+        else:
+            return 'error'
