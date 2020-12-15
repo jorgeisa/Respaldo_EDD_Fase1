@@ -86,8 +86,8 @@ class AVL_DB:
 
         return nodo2
 
-    def eliminar(self, valor):
-        nodo = self.__eliminar(self.raiz, valor)
+    def eliminar(self, avlTable):
+        nodo = self.__eliminar(self.raiz, avlTable)
 
     def __eliminar(self, raiz, name):
 
@@ -107,7 +107,7 @@ class AVL_DB:
             elif raiz.der != None and raiz.izq != None:
                 valores = self.__caso2(raiz.izq)
                 raiz.izq = valores.nodo
-                raiz.name = valores.valor
+                raiz.name = valores.avlTable
                 return raiz
             # Nodo con un hijo
             elif raiz.der != None or raiz.izq != None:
@@ -143,11 +143,11 @@ class AVL_DB:
         class NodoyValor:
             def __init__(self):
                 self.nodo = None
-                self.valor = 0
+                self.avlTable = None
 
         if nodo.der == None:
             valores = NodoyValor()
-            valores.valor = nodo.name
+            valores.avlTable = nodo.name
             nodo = None
             valores.nodo = nodo
             return valores
@@ -227,7 +227,7 @@ class AVL_DB:
             return ''
 
         bases += str(self.__recorrido(nodo.izq))
-        bases += nodo.name + ' '
+        bases += str(nodo.name) + ' '
         bases += str(self.__recorrido(nodo.der))
 
         return bases
@@ -238,7 +238,7 @@ class AVL_DB:
 
         if nodo is not None:
             self.eliminar(nodo.name)
-            self.insertar(nodo.valor, nuevo_valor)
+            self.insertar(nodo.avlTable, nuevo_valor)
             return 'exito'
         else:
             return 'error'
@@ -246,6 +246,5 @@ class AVL_DB:
     # Metodo para el DropDatabase
     def eliminarDB(self, nodoDB):
         self.eliminar(nodoDB)
-
 
 
