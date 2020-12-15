@@ -108,7 +108,7 @@ class AVL_TABLE:
             elif raiz.der != None and raiz.izq != None:
                 valores = self.__caso2(raiz.izq)
                 raiz.izq = valores.nodo
-                raiz.name = valores.valor
+                raiz.name = valores.bPlus
                 return raiz
             # Nodo con un hijo
             elif raiz.der != None or raiz.izq != None:
@@ -144,11 +144,11 @@ class AVL_TABLE:
         class NodoyValor:
             def __init__(self):
                 self.nodo = None
-                self.valor = 0
+                self.bPlus = 0
 
         if nodo.der == None:
             valores = NodoyValor()
-            valores.valor = nodo.name
+            valores.bPlus = nodo.name
             nodo = None
             valores.nodo = nodo
             return valores
@@ -239,7 +239,7 @@ class AVL_TABLE:
 
         if nodo is not None:
             self.eliminar(nodo.name)
-            self.insertar(nodo.valor, nuevo_valor)
+            self.insertar(nodo.bPlus, nuevo_valor, nodo.numberColumns)
             return 'exito'
         else:
             return 'error'
