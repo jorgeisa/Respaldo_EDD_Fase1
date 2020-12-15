@@ -1,4 +1,4 @@
-from AVL_Table import Avl as AvlT
+from AVL_Table import AVL_TABLE as AvlT
 import os
 
 class Nodo:
@@ -11,7 +11,7 @@ class Nodo:
         self.factor = 1
 
 
-class Avl:
+class AVL_DB:
 
     def __init__(self):
         self.raiz = None
@@ -108,7 +108,7 @@ class Avl:
             elif raiz.der != None and raiz.izq != None:
                 valores = self.__caso2(raiz.izq)
                 raiz.izq = valores.nodo
-                raiz.valor = valores.valor
+                raiz.name = valores.valor
                 return raiz
             #Nodo con un hijo
             elif raiz.der != None or raiz.izq != None:
@@ -233,3 +233,14 @@ class Avl:
         bases += str(self.__recorrido(nodo.der))
 
         return bases
+    
+     # Metodo para actualizar
+    def actualizar(self, valor_actual, nuevo_valor):
+        nodo = self.buscar(valor_actual)
+
+        if nodo is not None:
+            self.eliminar(nodo.name)
+            self.insertar(nodo.valor, nuevo_valor)
+            return 'exito'
+        else:
+            return 'error'
