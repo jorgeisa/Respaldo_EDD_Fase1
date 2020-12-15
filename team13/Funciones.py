@@ -23,7 +23,7 @@ def showDatabases():
     return lista
 
 def alterDatabase(databaseOld, databaseNew):
-    if re.match(r'[_]?[A-Za-z]+[_]?[_0-9]*[_]?', databaseNew):
+    if re.match(r'[_]*[A-Za-z]+[_]*[_0-9]*[_]*', databaseNew):
         db = DataBase.buscar(str(databaseOld))
         db_new = DataBase.buscar(str(databaseNew))
 
