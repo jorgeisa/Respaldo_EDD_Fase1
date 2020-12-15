@@ -3,9 +3,11 @@ import os
 
 class Nodo:
 
-    def __init__(self, valor, name):
+    def __init__(self, bPlus, name, numberColumns):
         self.name = name
-        self.valor = valor
+        self.numberColumns = numberColumns
+        self.bPlus = bPlus
+
         self.izq = None
         self.der = None
         self.factor = 1
@@ -16,17 +18,17 @@ class AVL_TABLE:
     def __init__(self):
         self.raiz = None
 
-    def insertar(self, tabla, name):
-        self.raiz = self.__insertar(self.raiz, tabla, name)
+    def insertar(self, bPlus, name, numberColumns):
+        self.raiz = self.__insertar(self.raiz, bPlus, name, numberColumns)
 
-    def __insertar(self, nodo, tabla, name):
+    def __insertar(self, nodo, bPlus, name, numberColumns):
         # Insertar nodos
         if nodo == None:
-            return Nodo(tabla, name)
+            return Nodo(bPlus, name, numberColumns)
         elif name < nodo.name:
-            nodo.izq = self.__insertar(nodo.izq, tabla, name)
+            nodo.izq = self.__insertar(nodo.izq, bPlus, name, numberColumns)
         elif name > nodo.name:
-            nodo.der = self.__insertar(nodo.der, tabla, name)
+            nodo.der = self.__insertar(nodo.der, bPlus, name, numberColumns)
 
         # Determinar el Factor
         nodo.factor = 1 + max(self.__obtenerFactor(nodo.der), self.__obtenerFactor(nodo.izq))
@@ -85,8 +87,8 @@ class AVL_TABLE:
 
         return nodo2
 
-    def eliminar(self, valor):
-        nodo = self.__eliminar(self.raiz, valor)
+    def eliminar(self, name):
+        nodo = self.__eliminar(self.raiz, name)
 
     def __eliminar(self, raiz, name):
 
@@ -202,20 +204,20 @@ class AVL_TABLE:
         return graph
 
     def recorrido(self):
-        lista_BD = self.__recorrido(self.raiz)
-        return lista_BD
+        lista_T = self.__recorrido(self.raiz)
+        return lista_T
 
     def __recorrido(self, nodo):
-        bases = ''
+        tablas = ''
 
         if nodo == None:
             return ''
 
-        bases += str(self.__recorrido(nodo.izq))
-        bases += nodo.name + ' '
-        bases += str(self.__recorrido(nodo.der))
+        tablas += str(self.__recorrido(nodo.izq))
+        tablas += nodo.name + ' '
+        tablas += str(self.__recorrido(nodo.der))
 
-        return bases
+        return tablas
 
         # Metodo para buscar
 

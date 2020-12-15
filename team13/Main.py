@@ -29,34 +29,60 @@ def Main():
     tree.graphTree()
 
 
-Main()
-
-
 # Test para funciones
 def test():
-    createDatabase('DB1')
-    createDatabase('DB2')
-    createDatabase('DB3')
-    createDatabase('DB4')
-    createDatabase('DB5')
+    print("Creacion de DBs:")
+    print(createDatabase('DB1'), end="-")
+    print(createDatabase('DB2'), end="-")
+    print(createDatabase('DB3'), end="-")
+    print(createDatabase('DB4'), end="-")
+    print(createDatabase('DB5'))
+    print("Impresion de DBs:")
+    print(showDatabases())
 
-    db2 = DataBase.buscar('DB2')
-    # Insertando tablas a DB2
-    db2.valor.insertar('DB2 - Valor1', 'T1')
-    db2.valor.insertar('DB2 - Valor2', 'T2')
-    db2.valor.insertar('DB2 - Valor3', 'T3')
-    db2.valor.insertar('DB2 - Valor4', 'T4')
-    db2.valor.insertar('DB2 - Valor5', 'T5')
-    db2.valor.insertar('DB2 - Valor6', 'T6')
-
-    db4 = DataBase.buscar('DB4')
-    # Insertando tablas a DB4
-    db4.valor.insertar('DB4 - Valor1', 'Estudiante')
-    db4.valor.insertar('DB4 - Valor2', 'Profesor')
-    db4.valor.insertar('DB4 - Valor3', 'Curso')
-    db4.valor.insertar('DB4 - Valor4', 'Asignacion')
-
+    # Graficando DBs
+    DataBase.graficar()
+    print("\nElimando la DB6:")
+    print(dropDatabase('DB6'))
     DataBase.graficar()
 
-    print(dropDatabase('DB4'))
-    DataBase.graficar()
+    # Creando Tablas para DB2
+    # createTable(database: str, table: str, numberColumns: int)
+    print("\nCreacion de Tablas en DBs:")
+    print("Creacion Tablas DB2:")
+    print(createTable('DB2', 'Table1_DB2', [0, 2]), end="-")
+    print(createTable('DB2', 'Table2_DB2', [0, 2]), end="-")
+    print(createTable('DB2', 'Table3_DB2', [None, 2]), end="-")
+    print(createTable('DB2', 'Table4_DB2', [0, 2]), end="-")
+    print(createTable('DB2', 'Table5_DB2', [0, 2]), end="-")
+    print(createTable('DB2', 'Table6_DB2', [0, 2]))
+
+    # Creando tablas a DB4
+    print("Creacion Tablas DB4:")
+    print(createTable('DB4', 'Table1_DB4', [None, 4]), end="-")
+    print(createTable('DB4', 'Table2_DB4', [0, 4]), end="-")
+    print(createTable('DB4', 'Table3_DB4', [0, None]), end="-")
+    print(createTable('DB4', 'Table4_DB4', [None, None]), end="-")
+    print(createTable('DB4', 'Table5_DB4', [0, 4]), end="-")
+    print(createTable('DB4', 'Table6_DB4', [0, 4]))
+
+    # Mostrando las tablas
+    # Mostrando Tablas DB2, DB3, DB4
+    print("\nMostrando Tablas de DBs:")
+    print("Tablas DB2:")
+    print(showTables('DB2'))
+    print("Tablas DB3 (sin tablas):")
+    print(showTables('DB3'))
+    print("Tablas DB30 (no existente):")
+    print(showTables('DB30'))
+    print("Tablas DB4:")
+    print(showTables('DB4'))
+
+    print("\nGraficando Tablas de DBs")
+    print("Tablas de DB2")
+    print(graficarTablas("DB2"))
+
+
+
+# Main()
+test()

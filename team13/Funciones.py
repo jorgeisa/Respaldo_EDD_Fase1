@@ -2,19 +2,21 @@ from os import name
 import re
 from AVL_DB import AVL_DB as AvlDb
 from AVL_TABLE import AVL_TABLE as AvlT
+from BPLUS_TUPLE import BPLUS_TUPLE as bPlusT
 
 DataBase = AvlDb()
 pattern = r'[_]*[A-Za-z]+[_]*[_0-9]*[_]*'
 
 
 def createDatabase(nameDb):
-    busqueda = DataBase.buscar(str(nameDb))
-    if busqueda == None:
-        tabla = AvlT()
-        DataBase.insertar(tabla, nameDb)
-        return 0
-    elif busqueda != None:
-        return 2
+    if re.match(pattern, nameDb):
+        busqueda = DataBase.buscar(str(nameDb))
+        if busqueda == None:
+            tabla = AvlT()
+            DataBase.insertar(tabla, nameDb)
+            return 0
+        elif busqueda != None:
+            return 2
     else:
         return 1
 
@@ -57,6 +59,29 @@ def dropDatabase(database):
         return 1
 
 
+def createTable(database, table, numberColumns):
+    dataB = DataBase.buscar(str(database))
+    if dataB is not None:
+        tablaBuscada = dataB.avlTable.buscar(table)
+        if tablaBuscada is None:
+            bPlus = bPlusT(5)
+            dataB.avlTable.insertar(bPlus, table, numberColumns)
+            return 0
+        return 3
+    return 2
+
+
+def showTables(database):
+    dataB = DataBase.buscar(str(database))
+    if dataB is not None:
+        tablas = dataB.avlTable.recorrido()
+        if not (len(tablas) == 0):
+            listaTablas = tablas.split(' ')
+            listaTablas.pop()
+            return listaTablas
+        return tablas
+    return dataB
+
 def alterTable(database, tableOld, tableNew):
     if re.match(pattern, database):
         db = DataBase.buscar(database)
@@ -77,3 +102,18 @@ def alterTable(database, tableOld, tableNew):
                     return 1
     else:
         return 1
+
+# FUNCIONALIDADES APARTE
+
+
+def graficarTablas(database):
+    dataB = DataBase.buscar(database)
+    if dataB is None:
+        return dataB
+    else:
+        avl = dataB.avlTable
+        if avl.raiz is not None:
+            avl.graficar()
+            return 1
+        return avl
+
