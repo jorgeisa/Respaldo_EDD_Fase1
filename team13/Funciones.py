@@ -23,18 +23,21 @@ def showDatabases():
     return lista
 
 def alterDatabase(databaseOld, databaseNew):
-    db = DataBase.buscar(str(databaseOld))
-    db_new = DataBase.buscar(str(databaseNew))
+    if re.match(r'[_]?[A-Za-z]+[_]?[_0-9]*[_]?', databaseNew):
+        db = DataBase.buscar(str(databaseOld))
+        db_new = DataBase.buscar(str(databaseNew))
 
-    if db is None:
-        return 2
-    elif db_new is not None:
-        return 3
-    elif db is not None:
-        if DataBase.actualizar(databaseOld, databaseNew) == 'exito':
-            return 0
-        else:
-            return 1
+        if db is None:
+            return 2
+        elif db_new is not None:
+            return 3
+        elif db is not None:
+            if DataBase.actualizar(databaseOld, databaseNew) == 'exito':
+                return 0
+            else:
+                return 1
+    else:
+        return 1
 
 
 def alterTable(database, tableOld, tableNew):
