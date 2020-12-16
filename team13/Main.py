@@ -4,29 +4,26 @@ from Funciones import *
 
 
 def Main():
-    tree = BPLUS_TUPLE(3)
+    tree = BPLUS_TUPLE(3, 2, [0])
 
-    tree.add(9)
-    tree.add(3)
-    tree.add(2)
-    tree.add(1)
-    tree.add(0)
-    tree.add(15)
-    tree.add(4)
-    tree.add(16)
-    tree.add(18)
-    tree.add(5)
-    tree.add(6)
-    tree.add(7)
-    tree.add(20)
-    tree.add(25)
-    tree.add(8)
-    tree.showTree()
+    tree.insert([1, "A"])
+    tree.insert([2, "B"])
+    tree.insert([3, "C"])
+    tree.insert([4, "D"])
+    tree.insert([5, "E"])
+    tree.insert([6, "F"])
+    tree.insert([7, "G"])
+    tree.insert([8, "H"])
 
-    print(tree.search(8))
-    print(tree.search(10000))
-
-    tree.graphTree()
+    # Mostrando registros
+    print(tree.extractRow([1]))
+    print(tree.extractRow([2]))
+    print(tree.extractRow([3]))
+    print(tree.extractRow([4]))
+    print(tree.extractRow([5]))
+    print(tree.extractRow([6]))
+    print(tree.extractRow([7]))
+    print(tree.extractRow([8]))
 
 
 # Test para funciones
