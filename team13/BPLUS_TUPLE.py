@@ -377,7 +377,7 @@ class PageTBPlus:
             return self.__childs[i + 1].SearchRegister(key)
         
         while i < (len(self.__keys) - 1):
-            if (self.__keys[i].value < key) and (key < self.__keys[i + 1].value):
+            if (self.__keys[i].value <= key) and (key < self.__keys[i + 1].value):
                 return self.__childs[i + 1].SearchRegister(key)
             i += 1
         
@@ -418,7 +418,7 @@ class PageTBPlus:
             return self.__childs[i + 1].Search(key)
         
         while i < (len(self.__keys) - 1):
-            if (self.__keys[i].value < key) and (key < self.__keys[i + 1].value):
+            if (self.__keys[i].value <= key) and (key < self.__keys[i + 1].value):
                 return self.__childs[i + 1].Search(key)
             i += 1
         
