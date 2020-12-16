@@ -3,30 +3,86 @@ import os
 
 class BPLUS_TUPLE:
     
-    def __init__(self, grade):
-        if grade < 3:
+    def __init__(self, grade, size, pk):
+        if grade < 3 or grade is None or grade == "" or int(grade) < 3:
             self.__grade = 3
         else:
             self.__grade = grade
 
         self.__root = None
+        self.__size = size
+        self.__PK = pk
     
     def get_root(self):
         return self.__root
 
-    def add(self, key):
+    def insert(self, register: list) -> int:
         if self.__root is None:
-            self.__root = PageTBPlus(self.__grade)
-            self.__root.add_key(NodeTBPlus(key))
+            if len(register) == self.__size:
+                self.__root = PageTBPlus(self.__grade)
+                pk = []
+                for i in self.__PK:
+                    if type(register[i]) is str:
+                        pk.append(register[i])
+                    elif type(register[i] is int) and (len(self.__PK) == 1):
+                        pk = register[i]
+                    else: 
+                        pk.append(str(register[i]))
+                if type(pk) is list:
+                    pk = '-'.join(pk)
+                self.__root = self.__root.add_key(NodeTBPlus(pk,register))
+                print("Llave Agregada -> 0")
+                return 0
+            else:
+                print("Columnas Fuera De Limite -> 5")
+                return 5
         else:
-            self.__root = self.__root.add_key(NodeTBPlus(key))
-            
-    def search(self, key):
-        if self.__root is not None:
-            return self.__root.search(key).value
+            if len(register) == self.__size:
+                pk = []
+                for i in self.__PK:
+                    if type(register[i]) is str:
+                        pk.append(register[i])
+                    elif type(register[i] is int) and (len(self.__PK) == 1):
+                        pk = register[i]
+                    else:
+                        pk.append(str(register[i]))
+                if type(pk) is list:
+                    pk = '-'.join(pk)
+                if self.Search(pk):
+                    print("Llave Duplicada -> 4")
+                    return 4
+                else:
+                    self.__root = self.__root.add_key(NodeTBPlus(pk,register))
+                    print("Llave Agregada -> 0")
+                    return 0
+            else:
+                print("Columnas Fuera De Limite -> 5")
+                return 5
     
-    def printTree(self):
-        return self.__root.callPage()
+    def loadCSV(self, file: str) -> list:
+        results = []
+        registers = file.split('\n')
+        for i in registers:
+            register = i.split(',')
+            results.append(self.insert(register))
+        return results
+
+    def extractRow(self, columns: list) -> list:
+        pk = []
+        for i in columns:
+            if type(i) is str:
+                pk.append(i)
+            elif (type(i) is int) and (len(columns) == 1):
+                pk = i
+            else: 
+                pk.append(str(i))
+        if type(pk) is list:
+            pk = '-'.join(pk)
+        if self.__root is not None:
+            if type(pk) is int:
+                return self.__root.Search(pk)
+            else:
+                 return self.__root._CallPage(pk)
     
     # Print tree
     def showTree(self):
@@ -131,80 +187,28 @@ class PageTBPlus:
             if len(self.__childs) == 0:
                 self.sort(key)
                 if len(self.__keys) == (self.__grade):
-                    return self.SplitPage()
+                     return self.SplitPage()
                 return self
             else:
                 i = 0
                 if key.value < self.__keys[i].value:
                     aux = self.__childs[i].add_key(key)
-                    if type(aux) is list:
-                        self.__childs.pop(i)
-                        for x in range(len(aux) - 1):
-                            self.__childs.insert((i + x), aux[x])
-                        if len(self.__keys) < self.__grade:
-                            self.sort(aux[len(aux) - 1])
-                            if len(self.__keys) == (self.__grade):
-                                return self.SplitPage()
-                            return self
-                        else:
-                            self.add_key(aux[len(aux) - 1])
-                    else:
-                        self.__childs[i] = aux
-                    return self
+                    return self.insert_childs(aux, i)                   
 
                 elif (self.__keys[i].value < key.value) and (len(self.__keys) == 1):
                     aux = self.__childs[i + 1].add_key(key)
-                    if type(aux) is list:
-                        self.__childs.pop(i + 1)
-                        for x in range(len(aux) - 1):
-                            self.__childs.append(aux[x])
-                        if len(self.__keys) < self.__grade:
-                            self.sort(aux[len(aux) - 1])
-                            if len(self.__keys) == (self.__grade):
-                                return self.SplitPage()
-                            return self
-                        else:
-                            self.add_key(aux[len(aux) - 1])
-                    else:
-                        self.__childs[i + 1] = aux
-                    return self
+                    return self.insert_childs(aux, (i + 1))
 
                 while i < (len(self.__keys) - 1):
                     if (self.__keys[i].value < key.value) and (key.value < self.__keys[i + 1].value):
                         aux = self.__childs[i + 1].add_key(key)
-                        if type(aux) is list:
-                            self.__childs.pop(i + 1)
-                            for x in range(len(aux) - 1):
-                                self.__childs.insert((i + 1) + x, aux[x])
-                            if len(self.__keys) < self.__grade:
-                                self.sort(aux[len(aux) - 1])
-                                if len(self.__keys) == (self.__grade):
-                                    return self.SplitPage()
-                                return self
-                            else:
-                                self.add_key(aux[len(aux) - 1])
-                        else:
-                            self.__childs[i + 1] = aux
-                        return self
+                        return self.insert_childs(aux, (i + 1))
                     i += 1
                     
                 i += 1
                 if self.__keys[i - 1].value < key.value:
                     aux = self.__childs[i].add_key(key)
-                    if type(aux) is list:
-                        self.__childs.pop(i)
-                        for x in range(len(aux) - 1):
-                            self.__childs.insert((i + x), aux[x])
-                        if len(self.__keys) < self.__grade:
-                            self.sort(aux[len(aux) - 1])
-                            if len(self.__keys) == (self.__grade):
-                                return self.SplitPage()
-                            return self
-                        else:
-                            self.add_key(aux[len(aux) - 1])
-                    else:
-                        self.__childs[i] = aux
-                    return self
+                    return self.insert_childs(aux, i)
 
     def SplitPage(self):
         if (self.__grade % 2) > 0:
@@ -227,18 +231,18 @@ class PageTBPlus:
 
             temp.add_chld(chld1)
             temp.add_chld(chld2)
-            chld1.set_father(temp)
-            chld2.set_father(temp)
-            temp.set_father(self.get_father())
-            auxiliar = self.get_previous()
+            chld1.__father = temp
+            chld2.__father = temp
+            temp.__father = self.__father
+            auxiliar = self.__previous
             if auxiliar is not None: 
-                auxiliar.set_next(chld1)
-            chld1.set_previous(auxiliar)
-            chld1.set_next(chld2)
-            chld2.set_previous(chld1)
-            chld2.set_next(self.get_next())
-            if self.get_next() is not None:
-                self.get_next().set_previous(chld2)
+                auxiliar.__next = chld1
+            chld1.__previous = auxiliar
+            chld1.__next = chld2
+            chld2.__previous = chld1
+            chld2.__next = self.__next
+            if self.__next is not None:
+                self.__next.__previous = chld2
             return temp
 
         elif len(self.__childs) == 0:
@@ -248,23 +252,23 @@ class PageTBPlus:
                 else:
                     chld2.__keys.append(self.__keys[i])
 
-            chld1.set_father(self.get_father())
-            chld2.set_father(self.get_father())
-            auxiliar = self.get_previous()
+            chld1.__father = self.__father
+            chld2.__father = self.__father
+            auxiliar = self.__previous
             if auxiliar is not None: 
-                auxiliar.set_next(chld1)
-            chld1.set_previous(auxiliar)
-            chld1.set_next(chld2)
-            chld2.set_previous(chld1)
-            chld2.set_next(self.get_next())
-            if self.get_next() is not None:
-                self.get_next().set_previous(chld2)
+                auxiliar.__next = chld1
+            chld1.__previous = auxiliar
+            chld1.__next = chld2
+            chld2.__previous = chld1
+            chld2.__next = self.__next
+            if self.__next is not None:
+                self.__next.__previous = chld2
             temp = []
             temp.extend([chld1, chld2, self.__keys[index]])
             return temp
         else:
-            if self.get_father() is not None:
-                if len(self.get_father().get_keys()) < self.__grade:
+            if self.__father is not None:
+                if len(self.__father.__keys) < self.__grade:
                     for i in range(len(self.__keys)):
                         if i < index:
                             chld1.__keys.append(self.__keys[i])
@@ -275,13 +279,13 @@ class PageTBPlus:
                         aux = self.__childs[i]
                         if i <= index:
                             chld1.add_chld(aux)
-                            aux.set_father(chld1)
+                            aux.__father = chld1
                         else:
                             chld2.add_chld(aux)
-                            aux.set_father(chld2)
+                            aux.__father = chld2
                     
-                    chld1.set_father(self.get_father())
-                    chld2.set_father(self.get_father())
+                    chld1.__father = self.__father
+                    chld2.__father = self.__father
                     temp = []
                     temp.extend([chld1, chld2, self.__keys[index]])
                     return temp
@@ -299,69 +303,123 @@ class PageTBPlus:
                     aux = self.__childs[i]
                     if i <= index:
                         chld1.add_chld(aux)
-                        aux.set_father(chld1)
+                        aux.__father = chld1
                     else:
                         chld2.add_chld(aux)
-                        aux.set_father(chld2)
+                        aux.__father = chld2
 
                 temp.add_chld(chld1)
                 temp.add_chld(chld2)
-                chld1.set_father(temp)
-                chld2.set_father(temp)
+                chld1.__father = temp
+                chld2.__father = temp
                 return temp
 
-    def sort(self, key):
+     def sort(self, key):
         for i in range(len(self.__keys)):
             if key.value < self.__keys[i].value:
                 self.__keys.insert(i,key)
                 break
             elif i == (len(self.__keys) - 1):
                 self.__keys.append(key)
+    
+    def insert_childs(self, aux, i):
+        if type(aux) is list:
+            self.__childs.pop(i)
+            for x in range(len(aux) - 1):
+                self.__childs.insert((i + x), aux[x])
+            if len(self.__keys) < self.__grade:
+                self.sort(aux[len(aux) - 1])
+                if len(self.__keys) == (self.__grade):
+                    return self.SplitPage()
+                return self
+            else:
+                self.add_key(aux[len(aux) - 1])
+        else:
+            self.__childs[i] = aux
         return self
     
-    def search(self, key):
+    def CallPage(self, key):
+        if (len(self.__childs) == 0) and (self.__father is None):
+            return self.SearchTuple(key)
+        elif len(self.__childs) == 0:
+            return self.SearchTuple(key)
+        else:
+            return self.__childs[0].CallPage(key)
+
+    def SearchTuple(self, key):
+        if self is not None:
+            for i in self.__keys:
+                if i.value == key:
+                    return True
+            if self.__next is None:
+                return False
+            else:
+                return self.__next.SearchTuple(key)
+    
+    def SearchRegister(self, key):
         i = 0
         if len(self.__childs) == 0:
             for i in self.__keys:
                 if i.value == key:
-                    return i
-            return NodeTBPlus(-1)
+                    return True
+            return False
 
         elif key < self.__keys[i].value:
-            return self.__childs[i].search(key)
+            return self.__childs[i].SearchRegister(key)
 
         elif ((self.__keys[i].value <= key)) and (len(self.__keys) == 1):
-            return self.__childs[i + 1].search(key)
+            return self.__childs[i + 1].SearchRegister(key)
         
         while i < (len(self.__keys) - 1):
             if (self.__keys[i].value < key) and (key < self.__keys[i + 1].value):
-                return self.__childs[i + 1].search(key)
+                return self.__childs[i + 1].SearchRegister(key)
             i += 1
         
         i += 1
         if self.__keys[i - 1].value < key:
-            return self.__childs[i].search(key)
-
-    def callPage(self):
-        if (len(self.get_chlds()) == 0) and (self.get_father() is None):
-            for i in self.get_chlds():
-                print(i.value)
-        elif len(self.get_chlds()) == 0:
-            return self.printLeaf()
+            return self.__childs[i].SearchRegister(key)
+        
+    def _CallPage(self, key):
+        if (len(self.__childs) == 0) and (self.__father is None):
+            return self._SearchTuple(key)
+        elif len(self.__childs) == 0:
+            return self._SearchTuple(key)
         else:
-             return self.get_chlds()[0].callPage()
+             return self.__childs[0]._CallPage(key)
 
-    def printLeaf(self):
+    def _SearchTuple(self, key):
         if self is not None:
-            for i in self.get_keys():
-                print(i.value, end=" ")
-            if self.get_next() is None:
-                return -1
+            for i in self.__keys:
+                if i.value == key:
+                    return i.register
+            if self.__next is None:
+                return []
             else:
-                return self.get_next().printLeaf()
-    
-    def Travel(self):
-        pass
+                return self.__next.SearchTuple(key)
+
+    def Search(self, key):
+        i = 0
+        if len(self.__childs) == 0:
+            for i in self.__keys:
+                if i.value == key:
+                    return i.register
+            return []
+
+        elif key < self.__keys[i].value:
+            return self.__childs[i].Search(key)
+
+        elif ((self.__keys[i].value <= key)) and (len(self.__keys) == 1):
+            return self.__childs[i + 1].Search(key)
+        
+        while i < (len(self.__keys) - 1):
+            if (self.__keys[i].value < key) and (key < self.__keys[i + 1].value):
+                return self.__childs[i + 1].Search(key)
+            i += 1
+        
+        i += 1
+        if self.__keys[i - 1].value < key:
+            return self.__childs[i].Search(key)
+
 
     # Show Keys of Page
     def showKeys(self):
@@ -429,8 +487,9 @@ class PageTBPlus:
 
 class NodeTBPlus:
 
-    def __init__(self, value):
-        self.value = value
+    def __init__(self, PK, register):
+        self.value = PK
+        self.register = register
         
 
 
