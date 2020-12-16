@@ -83,6 +83,12 @@ class BPLUS_TUPLE:
                 return self.__root.Search(pk)
             else:
                  return self.__root._CallPage(pk)
+    def Search(self, key):
+        if self.__root is not None:
+            if type(key) is int:
+                return self.__root.SearchRegister(key)
+            else:
+                return self.__root.CallPage(key)
     
     # Print tree
     def showTree(self):
@@ -314,7 +320,7 @@ class PageTBPlus:
                 chld2.__father = temp
                 return temp
 
-     def sort(self, key):
+    def sort(self, key):
         for i in range(len(self.__keys)):
             if key.value < self.__keys[i].value:
                 self.__keys.insert(i,key)
