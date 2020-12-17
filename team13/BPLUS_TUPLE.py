@@ -39,18 +39,14 @@ class BPLUS_TUPLE:
                             pk.append(register[i])
                         else: 
                             pk.append(str(register[i]))
-                    if type(pk) is list:
-                        pk = '-'.join(pk)
+                    pk = '-'.join(pk)
                 else:
                     self.hide = True
                     pk = self.contador
                     self.contador += 1
                 self.__root = self.__root.add_key(NodeTBPlus(pk,register))
-                print(" -> 0")
                 return 0
-            else:
-                print("Columnas Fuera De Limite -> 5")
-                return 5
+            return 5
         else:
             if len(register) == self.__size:
                 pk = []
@@ -60,23 +56,15 @@ class BPLUS_TUPLE:
                             pk.append(register[i])
                         else:
                             pk.append(str(register[i]))
-                    if type(pk) is list:
-                        pk = '-'.join(pk)
+                    pk = '-'.join(pk)
                 elif self.hide:
                     pk = self.contador
                     self.contador += 1
-                else:
-                    pass
                 if self.Search(pk):
-                    print(" -> 4")
                     return 4
-                else:
-                    self.__root = self.__root.add_key(NodeTBPlus(pk,register))
-                    print(" -> 0")
-                    return 0
-            else:
-                print("Columnas Fuera De Limite -> 5")
-                return 5
+                self.__root = self.__root.add_key(NodeTBPlus(pk,register))
+                return 0
+            return 5
     
     def loadCSV(self, file: str) -> list:
         results = []
@@ -96,8 +84,7 @@ class BPLUS_TUPLE:
                     pk = i
                 else: 
                     pk.append(str(i))
-            if type(pk) is list:
-                pk = '-'.join(pk)
+            pk = '-'.join(pk)
             if self.__root is not None:
                 return self.__root._CallPage(pk)
        else:
@@ -107,10 +94,8 @@ class BPLUS_TUPLE:
         if self.__root is not None:
             for column in register:
                 if int(column) in self.__PK:
-                    print(" -> 1")
                     return 1
             if len(register) > len(self.__PK):
-                print(" -> 1")
                 return 1
             pk = []
             for i in columns:
@@ -120,24 +105,17 @@ class BPLUS_TUPLE:
                     pk = i
                 else: 
                     pk.append(str(i))
-            if type(pk) is list:
-                pk = '-'.join(pk)
+            pk = '-'.join(pk)
             tupla = self.__root._CallPage(pk)
             if tupla:
                 for column in register:
                     tupla[int(column)] = register[column]
-                print(" -> 0")
                 return 0
-            else:
-                print(" -> 4")
-                return 4
-        else:
-            print(" -> 1")
-            return 1
+            return 4
+        return 1
     
     def truncate(self) -> int:
         self.__root = None
-        print(" -> 0")
         return 0
     
     def Search(self, key):
