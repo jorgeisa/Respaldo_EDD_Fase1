@@ -115,6 +115,83 @@ def dropTable(database,table):
         return 2
     return 1
 
+def insert(database, table, register):
+    try:
+        base = DataBase.buscar(str(database))
+        if base is None:
+            return 2
+        else:
+            tabla = base.avlTable.buscar(table)
+            if tabla is None:
+                return 3
+            else:
+                return tabla.bPlus.insert(register)
+    except:
+        return 1
+
+def loadCSV(file, database, table):
+    try:
+        base = DataBase.buscar(str(database))
+        if base is None:
+            return 2
+        else:
+            tabla = base.avlTable.buscar(table)
+            if tabla is None:
+                return 3
+            else:
+                results = []
+                registers = file.split('\n')
+                for i in registers:
+                    register = i.split(',')
+                    results.append(tabla.bPlus.insert(register))
+                return results
+    except:
+        return []
+
+def extractRow(database, table, columns):
+    try:
+        base = DataBase.buscar(str(database))
+        if base is None:
+            return 2
+        else: 
+            tabla = base.avlTable.buscar(table)
+            if tabla is None:
+                return 3
+            else:
+                return tabla.bPlus.extractRow(columns)
+
+    except:
+        return []
+
+def update(database, table, register, columns):
+    try:
+        base = DataBase.buscar(str(database))
+        if base is None:
+            return 2
+        else:
+            tabla =  base.avlTable.buscar(table)
+            if tabla is None:
+                return 3
+            else:
+                return tabla.bPlus.update(register, columns)
+    except:
+        return 1
+
+def truncate(database, table):
+    try:
+        base = DataBase.buscar(str(database))
+        if base is None:
+            return 2
+        else:
+            tabla = base.avlTable.buscar(table)
+            if tabla is None:
+                return 3
+            else:
+                return tabla.bPlus.truncate()
+    except:
+        return 1
+
+
 # FUNCIONALIDADES APARTE
 
 
