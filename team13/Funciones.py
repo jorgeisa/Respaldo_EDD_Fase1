@@ -131,15 +131,15 @@ def insert(database, table, register):
 
 def loadCSV(file, database, table):
     try:
+        results = []
         base = DataBase.buscar(str(database))
         if base is None:
-            return 2
+            return results.append(2)
         else:
             tabla = base.avlTable.buscar(table)
             if tabla is None:
-                return 3
+                return results.append(3)
             else:
-                results = []
                 registers = file.split('\n')
                 for i in registers:
                     register = i.split(',')
