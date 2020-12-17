@@ -3,7 +3,7 @@ import os
 
 class BPLUS_TUPLE:
     
-    def __init__(self, grade, size, pk):
+    def __init__(self, grade, size):
         if grade < 3 or grade is None or grade == "" or int(grade) < 3:
             self.__grade = 3
         else:
@@ -11,27 +11,42 @@ class BPLUS_TUPLE:
 
         self.__root = None
         self.__size = size
-        self.__PK = pk
+        self.__PK = []
+        self.contador = 1
+        self.hide = False
     
     def get_root(self):
         return self.__root
-
+    
+    def set_root(self, root):
+        self.__root = root
+        
+    def set_PK(self, pk):
+        self.__PK = pk
+        self.hide = False
+    
+    def get_PK(self, pk):
+        return self.__PK
+    
     def insert(self, register: list) -> int:
         if self.__root is None:
             if len(register) == self.__size:
                 self.__root = PageTBPlus(self.__grade)
                 pk = []
-                for i in self.__PK:
-                    if type(register[i]) is str:
-                        pk.append(register[i])
-                    elif type(register[i] is int) and (len(self.__PK) == 1):
-                        pk = register[i]
-                    else: 
-                        pk.append(str(register[i]))
-                if type(pk) is list:
-                    pk = '-'.join(pk)
+                if self.__PK:
+                    for i in self.__PK:
+                        if type(register[i]) is str:
+                            pk.append(register[i])
+                        else: 
+                            pk.append(str(register[i]))
+                    if type(pk) is list:
+                        pk = '-'.join(pk)
+                else:
+                    self.hide = True
+                    pk = self.contador
+                    self.contador += 1
                 self.__root = self.__root.add_key(NodeTBPlus(pk,register))
-                print("Llave Agregada -> 0")
+                print(" -> 0")
                 return 0
             else:
                 print("Columnas Fuera De Limite -> 5")
@@ -39,21 +54,25 @@ class BPLUS_TUPLE:
         else:
             if len(register) == self.__size:
                 pk = []
-                for i in self.__PK:
-                    if type(register[i]) is str:
-                        pk.append(register[i])
-                    elif type(register[i] is int) and (len(self.__PK) == 1):
-                        pk = register[i]
-                    else:
-                        pk.append(str(register[i]))
-                if type(pk) is list:
-                    pk = '-'.join(pk)
+                if self.__PK:
+                    for i in self.__PK:
+                        if type(register[i]) is str:
+                            pk.append(register[i])
+                        else:
+                            pk.append(str(register[i]))
+                    if type(pk) is list:
+                        pk = '-'.join(pk)
+                elif self.hide:
+                    pk = self.contador
+                    self.contador += 1
+                else:
+                    pass
                 if self.Search(pk):
-                    print("Llave Duplicada -> 4")
+                    print(" -> 4")
                     return 4
                 else:
                     self.__root = self.__root.add_key(NodeTBPlus(pk,register))
-                    print("Llave Agregada -> 0")
+                    print(" -> 0")
                     return 0
             else:
                 print("Columnas Fuera De Limite -> 5")
@@ -68,27 +87,62 @@ class BPLUS_TUPLE:
         return results
 
     def extractRow(self, columns: list) -> list:
-        pk = []
-        for i in columns:
-            if type(i) is str:
-                pk.append(i)
-            elif (type(i) is int) and (len(columns) == 1):
-                pk = i
-            else: 
-                pk.append(str(i))
-        if type(pk) is list:
-            pk = '-'.join(pk)
+       if self.__root is not None:
+            pk = []
+            for i in columns:
+                if type(i) is str:
+                    pk.append(i)
+                elif (type(i) is int) and (len(columns) == 1):
+                    pk = i
+                else: 
+                    pk.append(str(i))
+            if type(pk) is list:
+                pk = '-'.join(pk)
+            if self.__root is not None:
+                return self.__root._CallPage(pk)
+        else:
+            return []
+    
+    def update(self, register: dict, columns: list) -> int:
         if self.__root is not None:
-            if type(pk) is int:
-                return self.__root.Search(pk)
+            for column in register:
+                if int(column) in self.__PK:
+                    print(" -> 1")
+                    return 1
+            if len(register) > len(self.__PK):
+                print(" -> 1")
+                return 1
+            pk = []
+            for i in columns:
+                if type(i) is str:
+                    pk.append(i)
+                elif type(i is int) and (len(self.__PK) == 1):
+                    pk = i
+                else: 
+                    pk.append(str(i))
+            if type(pk) is list:
+                pk = '-'.join(pk)
+            tupla = self.__root._CallPage(pk)
+            if tupla:
+                for column in register:
+                    tupla[int(column)] = register[column]
+                print(" -> 0")
+                return 0
             else:
-                 return self.__root._CallPage(pk)
+                print(" -> 4")
+                return 4
+        else:
+            print(" -> 1")
+            return 1
+    
+    def truncate(self) -> int:
+        self.__root = None
+        print(" -> 0")
+        return 0
+    
     def Search(self, key):
         if self.__root is not None:
-            if type(key) is int:
-                return self.__root.SearchRegister(key)
-            else:
-                return self.__root.CallPage(key)
+            return self.__root.CallPage(key)
     
     # Print tree
     def showTree(self):
@@ -362,29 +416,6 @@ class PageTBPlus:
             else:
                 return self.__next.SearchTuple(key)
     
-    def SearchRegister(self, key):
-        i = 0
-        if len(self.__childs) == 0:
-            for i in self.__keys:
-                if i.value == key:
-                    return True
-            return False
-
-        elif key < self.__keys[i].value:
-            return self.__childs[i].SearchRegister(key)
-
-        elif ((self.__keys[i].value <= key)) and (len(self.__keys) == 1):
-            return self.__childs[i + 1].SearchRegister(key)
-        
-        while i < (len(self.__keys) - 1):
-            if (self.__keys[i].value <= key) and (key < self.__keys[i + 1].value):
-                return self.__childs[i + 1].SearchRegister(key)
-            i += 1
-        
-        i += 1
-        if self.__keys[i - 1].value < key:
-            return self.__childs[i].SearchRegister(key)
-        
     def _CallPage(self, key):
         if (len(self.__childs) == 0) and (self.__father is None):
             return self._SearchTuple(key)
@@ -401,31 +432,7 @@ class PageTBPlus:
             if self.__next is None:
                 return []
             else:
-                return self.__next.SearchTuple(key)
-
-    def Search(self, key):
-        i = 0
-        if len(self.__childs) == 0:
-            for i in self.__keys:
-                if i.value == key:
-                    return i.register
-            return []
-
-        elif key < self.__keys[i].value:
-            return self.__childs[i].Search(key)
-
-        elif ((self.__keys[i].value <= key)) and (len(self.__keys) == 1):
-            return self.__childs[i + 1].Search(key)
-        
-        while i < (len(self.__keys) - 1):
-            if (self.__keys[i].value <= key) and (key < self.__keys[i + 1].value):
-                return self.__childs[i + 1].Search(key)
-            i += 1
-        
-        i += 1
-        if self.__keys[i - 1].value < key:
-            return self.__childs[i].Search(key)
-
+                return self.__next._SearchTuple(key)
 
     # Show Keys of Page
     def showKeys(self):
