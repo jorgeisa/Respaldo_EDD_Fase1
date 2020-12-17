@@ -63,7 +63,7 @@ def createTable(database, table, numberColumns):
     if dataB is not None:
         tablaBuscada = dataB.avlTable.buscar(table)
         if tablaBuscada is None:
-            bPlus = bPlusT(5)
+            bPlus = bPlusT(5, numberColumns)
             dataB.avlTable.insertar(bPlus, table, numberColumns)
             return 0
         return 3
