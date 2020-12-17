@@ -185,7 +185,17 @@ class BPLUS_TUPLE:
         cadena = ""
         cadena += tmp.rankLeavesKeys(tmp)
         return cadena
+    
+    def alterAddColumn(self, new_column):
+        contador = 0
+        self._alterAddColumn(self.__root, new_column, contador)
+        self.__size += 1
+        print('NUEVO TAMAÑO DE LA TABLA: ', self.__size)
 
+    def _alterAddColumn(self, temp, new_column, contador):
+        temp.add_new_column(temp, new_column, contador)
+
+        
 class PageTBPlus:
     
     def __init__(self, grade):
@@ -496,8 +506,20 @@ class PageTBPlus:
             cadena += f"{tmp};\n"
             if tmp.get_next() is not None:
                 cadena += self.rankLeavesKeys(tmp.get_next())
-        return cadena    
+        return cadena
+    
+    # Metodo para agregar nueva columna a la tabla
+    def add_new_column(self, temp, new_column, contador):
+        if len(temp.get_chlds()) != 0:
+            self.add_new_column(temp.get_chlds()[0], new_column, contador)
+        else:
+            for i in temp.get_keys():
+                i.register.append(new_column)
 
+            if temp.get_next() is not None:
+                self.add_new_column(temp.get_next(), new_column, contador)    
+
+                
 class NodeTBPlus:
 
     def __init__(self, PK, register):
