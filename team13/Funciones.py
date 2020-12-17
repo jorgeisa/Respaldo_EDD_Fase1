@@ -150,77 +150,66 @@ def dropTable(database,table):
 def insert(database, table, register):
     try:
         base = DataBase.buscar(str(database))
-        if base is None:
-            return 2
-        else:
+        if base is not None:
             tabla = base.avlTable.buscar(table)
-            if tabla is None:
-                return 3
-            else:
+            if tabla is not None:
                 return tabla.bPlus.insert(register)
+            return 3
+        return 2
     except:
         return 1
 
 
 def loadCSV(file, database, table):
     try:
-        results = []
         base = DataBase.buscar(str(database))
-        if base is None:
-            return results.append(2)
-        else:
+        if base is not None:
             tabla = base.avlTable.buscar(table)
-            if tabla is None:
-                return results.append(3)
-            else:
+            if tabla is not None:
+                results = []
                 registers = file.split('\n')
                 for i in registers:
                     register = i.split(',')
                     results.append(tabla.bPlus.insert(register))
                 return results
+            return []
+        return []
     except:
         return []
 
 def extractRow(database, table, columns):
     try:
-        base = DataBase.buscar(str(database))
-        if base is None:
-            return 2
-        else: 
+       base = DataBase.buscar(str(database))
+        if base is not None:
             tabla = base.avlTable.buscar(table)
-            if tabla is None:
-                return 3
-            else:
+            if tabla is not None:
                 return tabla.bPlus.extractRow(columns)
-
+            return []
+        return []    
     except:
         return []
 
 def update(database, table, register, columns):
     try:
         base = DataBase.buscar(str(database))
-        if base is None:
-            return 2
-        else:
+        if base is not None:
             tabla =  base.avlTable.buscar(table)
-            if tabla is None:
-                return 3
-            else:
+            if tabla is not None:
                 return tabla.bPlus.update(register, columns)
+            return 3
+        return 2
     except:
         return 1
 
 def truncate(database, table):
     try:
         base = DataBase.buscar(str(database))
-        if base is None:
-            return 2
-        else:
-            tabla = base.avlTable.buscar(table)
-            if tabla is None:
-                return 3
-            else:
+        if base is not None:
+            tabla =  base.avlTable.buscar(table)
+            if tabla is not None:
                 return tabla.bPlus.truncate()
+            return 3
+        return 2
     except:
         return 1
 
