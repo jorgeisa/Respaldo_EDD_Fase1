@@ -4,9 +4,11 @@ import os
 class Nodo:
 
     def __init__(self, bPlus, name, numberColumns):
+        self.bPlus = bPlus
         self.name = name
         self.numberColumns = numberColumns
-        self.bPlus = bPlus
+        self.listPk = []
+        self.listFK = []
 
         self.izq = None
         self.der = None
