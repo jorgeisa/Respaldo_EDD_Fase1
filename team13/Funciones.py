@@ -83,28 +83,44 @@ def showTables(database):
 
 
 def alterTable(database, tableOld, tableNew):
-    if re.match(pattern, database):
-        db = DataBase.buscar(database)
+    try:
+        if re.match(pattern, database):
+            db = DataBase.buscar(database)
+            if db is None:
+                return 2
+            else:
+                table = db.avlTable.buscar(tableOld)
+                table_new = db.avlTable.buscar(tableNew)
 
+                if table is None:
+                    return 3
+                elif table_new is not None:
+                    return 4
+                else:
+                    if table is not None:
+                        if db.avlTable.actualizar(tableOld, tableNew) == 'exito':
+                            return 0
+        else:
+            return 1
+    except:
+        return 1
+    
+def alterAddColumn(database, table, default):
+    try:
+        db = DataBase.buscar(str(database))
         if db is None:
             return 2
         else:
-            table = db.avlTable.buscar(tableOld)
-            table_new = db.avlTable.buscar(tableNew)
-
-            if table is None:
+            tabla = db.avlTable.buscar(table)
+            if tabla is None:
                 return 3
-            elif table_new is not None:
-                return 4
             else:
-                if table is not None:
-                    if db.avlTable.actualizar(tableOld, tableNew) == 'exito':
-                        return 0
-                    else:
-                        return 1
-    else:
-        return 1
+                tabla.bPlus.alterAddColumn(default)
+                return 0
+    except:
+        return 1    
 
+    
 def dropTable(database,table):
     BaseDatos = DataBase.buscar(database)
     Tabla = BaseDatos.avlTable.buscar(table)
