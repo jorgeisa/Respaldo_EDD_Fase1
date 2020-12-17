@@ -82,6 +82,20 @@ def showTables(database):
     return dataB
 
 
+def alterAddPK(database, table, columns):
+    dataB = DataBase.buscar(str(database))
+    if dataB is None:
+        return 2
+    tabla = dataB.avlTable.buscar(table)
+    if tabla is None:
+        return 3
+    if not tabla.verifyListPk():
+        return 4
+    if not tabla.verifyColumns(columns):
+        return 5
+    numero = tabla.alterAddPk(columns)
+
+
 def alterTable(database, tableOld, tableNew):
     try:
         if re.match(pattern, database):
@@ -104,7 +118,8 @@ def alterTable(database, tableOld, tableNew):
             return 1
     except:
         return 1
-    
+
+
 def alterAddColumn(database, table, default):
     try:
         db = DataBase.buscar(str(database))
@@ -131,6 +146,7 @@ def dropTable(database,table):
         return 2
     return 1
 
+
 def insert(database, table, register):
     try:
         base = DataBase.buscar(str(database))
@@ -144,6 +160,7 @@ def insert(database, table, register):
                 return tabla.bPlus.insert(register)
     except:
         return 1
+
 
 def loadCSV(file, database, table):
     try:

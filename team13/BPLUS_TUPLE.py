@@ -195,7 +195,23 @@ class BPLUS_TUPLE:
     def _alterAddColumn(self, temp, new_column, contador):
         temp.add_new_column(temp, new_column, contador)
 
-        
+    # alterAddPK method - Retorna una lista de las hojas
+    def verify_Nodes(self, columns):
+        dataList = []
+        dataList = self._verify_Nodes(self.__root, dataList, columns)
+        return dataList
+
+    def _verify_Nodes(self, tmp, dataList, columns):
+        if len(tmp.get_chlds()) != 0:
+            self._verify_Nodes(tmp.get_chlds()[0], dataList, columns)
+        else:
+            for i in tmp.get_keys():
+                dataList.append(i)
+            if tmp.get_next() is not None:
+                self._verify_Nodes(tmp.get_next(), dataList, columns)
+            return dataList
+
+
 class PageTBPlus:
     
     def __init__(self, grade):

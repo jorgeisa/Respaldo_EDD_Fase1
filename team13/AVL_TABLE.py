@@ -14,6 +14,38 @@ class Nodo:
         self.der = None
         self.factor = 1
 
+    def verifyListPk(self):
+        if len(self.listPk) == 0:
+            return False
+        return True
+
+    def verifyColumns(self, columnsList):
+        columnas = len(columnsList)
+        if (columnas > 0) and (columnas <= self.numberColumns):
+            return True
+        return False
+
+    def updateListPk(self, newListPk):
+        self.listPk = []
+        self.listPk = newListPk
+
+    def alterAddPk(self, columns):
+        bandera = False
+        dataList = self.bPlus.verify_Nodes(columns)
+        for i in columns:
+            listaColumna = []
+            for j in dataList:
+                listaColumna.append(j.register[i])
+            for j in dataList:
+                if j.register[i] in listaColumna:
+                    bandera = False
+
+        if bandera:
+            self.updateListPk(columns)
+            self.bPlus.set_PK(columns)
+
+            # Reestructuracion del arbol
+
 
 class AVL_TABLE:
 
