@@ -47,53 +47,65 @@ def alterDatabase(databaseOld, databaseNew):
 
 
 def dropDatabase(database):
-    if re.match(pattern, database):
-        dataB = DataBase.buscar(str(database))
-        if dataB is None:
-            return 2
+    try:
+        if re.match(pattern, database):
+            dataB = DataBase.buscar(str(database))
+            if dataB is None:
+                return 2
+            else:
+                DataBase.eliminarDB(database)
+                return 0
         else:
-            DataBase.eliminarDB(database)
-            return 0
-    else:
+            return 1
+    except:
         return 1
 
 
 def createTable(database, table, numberColumns):
-    dataB = DataBase.buscar(str(database))
-    if dataB is not None:
-        tablaBuscada = dataB.avlTable.buscar(table)
-        if tablaBuscada is None:
-            bPlus = bPlusT(5, numberColumns)
-            dataB.avlTable.insertar(bPlus, table, numberColumns)
-            return 0
-        return 3
-    return 2
+    try:
+        dataB = DataBase.buscar(str(database))
+        if dataB is not None:
+            tablaBuscada = dataB.avlTable.buscar(table)
+            if tablaBuscada is None:
+                bPlus = bPlusT(5, numberColumns)
+                dataB.avlTable.insertar(bPlus, table, numberColumns)
+                return 0
+            return 3
+        return 2
+    except:
+        return 1
 
 
 def showTables(database):
-    dataB = DataBase.buscar(str(database))
-    if dataB is not None:
-        tablas = dataB.avlTable.recorrido()
-        if not (len(tablas) == 0):
-            listaTablas = tablas.split(' ')
-            listaTablas.pop()
-            return listaTablas
-        return tablas
-    return dataB
+    try:
+        dataB = DataBase.buscar(str(database))
+        if dataB is not None:
+            tablas = dataB.avlTable.recorrido()
+            if not (len(tablas) == 0):
+                listaTablas = tablas.split(' ')
+                listaTablas.pop()
+                return listaTablas
+            return tablas
+        return dataB
+    except:
+        return None
 
 
 def alterAddPK(database, table, columns):
-    dataB = DataBase.buscar(str(database))
-    if dataB is None:
-        return 2
-    tabla = dataB.avlTable.buscar(table)
-    if tabla is None:
-        return 3
-    if not tabla.verifyListPk():
-        return 4
-    if not tabla.verifyColumns(columns):
-        return 5
-    return tabla.alterAddPk(columns)
+    try:
+        dataB = DataBase.buscar(str(database))
+        if dataB is None:
+            return 2
+        tabla = dataB.avlTable.buscar(table)
+        if tabla is None:
+            return 3
+        if not tabla.verifyListPk():
+            return 4
+        if not tabla.verifyColumns(columns):
+            return 5
+        return tabla.alterAddPk(columns)
+    except:
+        return 1
 
 
 def alterTable(database, tableOld, tableNew):

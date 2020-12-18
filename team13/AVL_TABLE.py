@@ -45,9 +45,13 @@ class Nodo:
         if bandera:
             self.updateListPk(columns)
             self.bPlus.set_PK(columns)
-            return 0
 
             # Reestructuracion del arbol
+            if self.bPlus.get_root() is not None:
+                self.bPlus.set_root(None)  # "Eliminando" arbol
+                for i in dataList:
+                    self.bPlus.insert(i.register)
+            return 0
 
 
 class AVL_TABLE:
