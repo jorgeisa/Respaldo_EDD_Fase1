@@ -173,6 +173,22 @@ class BPLUS_TUPLE:
             if tmp.get_next() is not None:
                 self._verify_Nodes(tmp.get_next(), dataList)
 
+    #extractTable method - Retorna una lista con los registros
+    def extractReg(self):
+        registros = []
+        if self.__root is not None:
+            self.__extractReg(self.__root,registros)
+        return registros
+
+    def __extractReg(self,nodo,registros):
+        if len(nodo.get_chlds()) != 0:
+            self.__extractReg(nodo.get_chlds()[0],registros)
+        else:
+            for i in nodo.get_keys():
+                registros.append(i.value)
+                registros.append(i.register)
+            if nodo.get_next() is not None:
+                self.__extractReg(nodo.get_next(),registros)
 
 class PageTBPlus:
     

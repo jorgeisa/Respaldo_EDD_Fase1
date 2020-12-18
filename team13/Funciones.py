@@ -228,6 +228,17 @@ def truncate(database, table):
     except:
         return 1
 
+def extractTable(database,table):
+    try:
+        BaseDatos = DataBase.buscar(database)
+        if BaseDatos != None:
+            Tabla = BaseDatos.avlTable.buscar(table)
+            if Tabla != None:
+                return Tabla.bPlus.extractReg()
+        else:
+            return None
+    except:
+        return None
 
 # FUNCIONALIDADES APARTE
 
@@ -242,3 +253,9 @@ def graficarTablas(database):
             avl.graficar()
             return 1
         return avl
+
+
+#Pruebas
+createDatabase('Almacen')
+createTable('Almacen','Tienda1',2)
+print(extractTable('Almacen','wefewg'))
