@@ -34,11 +34,8 @@ class BPLUS_TUPLE:
                 self.__root = PageTBPlus(self.__grade)
                 pk = []
                 if self.__PK:
-                    for i in self.__PK:
-                        if type(register[i]) is str:
-                            pk.append(register[i])
-                        else: 
-                            pk.append(str(register[i]))
+                    for i in self.__PK: 
+                        pk.append(str(register[i]))
                     pk = '-'.join(pk)
                 else:
                     self.hide = True
@@ -52,10 +49,7 @@ class BPLUS_TUPLE:
                 pk = []
                 if self.__PK:
                     for i in self.__PK:
-                        if type(register[i]) is str:
-                            pk.append(register[i])
-                        else:
-                            pk.append(str(register[i]))
+                        pk.append(str(register[i]))
                     pk = '-'.join(pk)
                 elif self.hide:
                     pk = self.contador
@@ -78,10 +72,7 @@ class BPLUS_TUPLE:
        if self.__root is not None:
             pk = []
             for i in columns:
-                if type(i) is str:
-                    pk.append(i)
-                else: 
-                    pk.append(str(i))
+                pk.append(str(i))
             pk = '-'.join(pk)
             if self.__root is not None:
                 return self.__root._CallPage(pk)
@@ -97,12 +88,7 @@ class BPLUS_TUPLE:
                 return 1
             pk = []
             for i in columns:
-                if type(i) is str:
-                    pk.append(i)
-                elif type(i is int) and (len(self.__PK) == 1):
-                    pk = i
-                else: 
-                    pk.append(str(i))
+                pk.append(str(i))
             pk = '-'.join(pk)
             tupla = self.__root._CallPage(pk)
             if tupla:
