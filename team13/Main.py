@@ -38,30 +38,30 @@ def test():
     print(showDatabases())
 
     # Graficando DBs
-    DataBase.graficar()
+    # DataBase.graficar()
     print("\nElimando la DB6:")
     print(dropDatabase('DB6'))
-    DataBase.graficar()
+    # DataBase.graficar()
 
     # Creando Tablas para DB2
     # createTable(database: str, table: str, numberColumns: int)
     print("\nCreacion de Tablas en DBs:")
     print("Creacion Tablas DB2:")
-    print(createTable('DB2', 'Table1_DB2', [0, 2]), end="-")
-    print(createTable('DB2', 'Table2_DB2', [0, 2]), end="-")
-    print(createTable('DB2', 'Table3_DB2', [None, 2]), end="-")
-    print(createTable('DB2', 'Table4_DB2', [0, 2]), end="-")
-    print(createTable('DB2', 'Table5_DB2', [0, 2]), end="-")
-    print(createTable('DB2', 'Table6_DB2', [0, 2]))
+    print(createTable('DB2', 'Table1_DB2', 2), end="-")
+    print(createTable('DB2', 'Table2_DB2', 2), end="-")
+    print(createTable('DB2', 'Table3_DB2', 2), end="-")
+    print(createTable('DB2', 'Table4_DB2', 2), end="-")
+    print(createTable('DB2', 'Table5_DB2', 2), end="-")
+    print(createTable('DB2', 'Table6_DB2', 2))
 
     # Creando tablas a DB4
     print("Creacion Tablas DB4:")
-    print(createTable('DB4', 'Table1_DB4', [None, 4]), end="-")
-    print(createTable('DB4', 'Table2_DB4', [0, 4]), end="-")
-    print(createTable('DB4', 'Table3_DB4', [0, None]), end="-")
-    print(createTable('DB4', 'Table4_DB4', [None, None]), end="-")
-    print(createTable('DB4', 'Table5_DB4', [0, 4]), end="-")
-    print(createTable('DB4', 'Table6_DB4', [0, 4]))
+    print(createTable('DB4', 'Table1_DB4', 2), end="-")
+    print(createTable('DB4', 'Table2_DB4', 2), end="-")
+    print(createTable('DB4', 'Table3_DB4', 2), end="-")
+    print(createTable('DB4', 'Table4_DB4', 2), end="-")
+    print(createTable('DB4', 'Table5_DB4', 2), end="-")
+    print(createTable('DB4', 'Table6_DB4', 2))
 
     # Mostrando las tablas
     # Mostrando Tablas DB2, DB3, DB4
