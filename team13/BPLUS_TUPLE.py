@@ -23,11 +23,16 @@ class BPLUS_TUPLE:
         
     def set_PK(self, pk):
         self.__PK = pk
-        self.hide = False
     
     def get_PK(self, pk):
         return self.__PK
-    
+
+    def set_hide(self, hide):
+        self.hide = hide
+
+    def set_contador(self, contador):
+        self.contador = contador
+
     def insert(self, register: list) -> int:
         if self.__root is None:
             if len(register) == self.__size:

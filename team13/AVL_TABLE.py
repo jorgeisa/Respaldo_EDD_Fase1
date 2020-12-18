@@ -53,6 +53,20 @@ class Nodo:
                     self.bPlus.insert(i.register)
             return 0
 
+    def alterDropPk(self):
+        self.listPk = []
+        self.bPlus.set_PK([])
+        self.bPlus.set_hide(True)
+        self.bPlus.set_contador(1)
+
+        if self.bPlus.get_root() is not None:
+            dataList = self.bPlus.verify_Nodes()
+            self.bPlus.set_root(None) # "Eliminando" arbol
+            for i in dataList:
+                self.bPlus.insert(i.register)
+
+            # self.bPlus.graphTree()
+        return 0
 
 class AVL_TABLE:
 

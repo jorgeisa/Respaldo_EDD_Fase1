@@ -108,6 +108,21 @@ def alterAddPK(database, table, columns):
         return 1
 
 
+def alterDropPK(database, table):
+    try:
+        dataB = DataBase.buscar(str(database))
+        if dataB is None:
+            return 2
+        tabla = dataB.avlTable.buscar(table)
+        if tabla is None:
+            return 3
+        if tabla.verifyListPk():
+            return 4
+        return tabla.alterDropPk()
+    except:
+        return 1
+
+
 def alterTable(database, tableOld, tableNew):
     try:
         if re.match(pattern, database):

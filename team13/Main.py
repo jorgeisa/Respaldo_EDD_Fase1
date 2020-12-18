@@ -82,8 +82,14 @@ def test():
     print(insert('DB4', 'Table1_DB4', [4, "Diego2"]))
     print(insert('DB4', 'Table1_DB4', [5, "Diego3"]))
 
-    print('Colocando las llaves primarias con alter')
+    print('1. Colocando las llaves primarias con alter')
     print(alterAddPK('DB4', 'Table1_DB4', [1]))
+
+    print('1.2 Eliminando la llave primaria de DB4:')
+    print(alterDropPK('DB4', 'Table1_DB4'))
+
+    print('2. Colocando las llaves primarias con alter')
+    print(alterAddPK('DB4', 'Table1_DB4', [0, 1]))
     # print("\nGraficando Tablas de DBs")
     # print("Tablas de DB2")
     # print(graficarTablas("DB2"))
