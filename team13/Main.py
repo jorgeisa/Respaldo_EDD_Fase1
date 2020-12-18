@@ -4,7 +4,7 @@ from Funciones import *
 
 
 def Main():
-    tree = BPLUS_TUPLE(3, 2, [0])
+    tree = BPLUS_TUPLE(3, 2)
 
     tree.insert([1, "A"])
     tree.insert([2, "B"])
@@ -75,11 +75,19 @@ def test():
     print("Tablas DB4:")
     print(showTables('DB4'))
 
-    print("\nGraficando Tablas de DBs")
-    print("Tablas de DB2")
-    print(graficarTablas("DB2"))
+    print('\nInsertando tuplas en DB4:')
+    print(insert('DB4', 'Table1_DB4', [1, "Manuel"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [2, "Gabriela"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [3, "Diego"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [4, "Diego"]))
+
+    print('Colocando las llaves primarias con alter')
+    print(alterAddPK('DB4', 'Table1_DB4', [1]))
+    # print("\nGraficando Tablas de DBs")
+    # print("Tablas de DB2")
+    # print(graficarTablas("DB2"))
 
 
 
-# Main()
-test()
+Main()
+# test()

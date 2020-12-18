@@ -16,8 +16,8 @@ class Nodo:
 
     def verifyListPk(self):
         if len(self.listPk) == 0:
-            return False
-        return True
+            return True
+        return False
 
     def verifyColumns(self, columnsList):
         columnas = len(columnsList)
@@ -30,19 +30,22 @@ class Nodo:
         self.listPk = newListPk
 
     def alterAddPk(self, columns):
-        bandera = False
+        bandera = True
         dataList = self.bPlus.verify_Nodes(columns)
-        for i in columns:
-            listaColumna = []
-            for j in dataList:
-                listaColumna.append(j.register[i])
-            for j in dataList:
-                if j.register[i] in listaColumna:
-                    bandera = False
+        if len(dataList) is not 0:
+            for i in columns:
+                listaColumna = []
+                for j in dataList:
+                    listaColumna.append(j.register[i])
+                for j in dataList:
+                    if listaColumna.count(j.register[i]) > 1:
+                        bandera = False
+                        return 1
 
         if bandera:
             self.updateListPk(columns)
             self.bPlus.set_PK(columns)
+            return 0
 
             # Reestructuracion del arbol
 

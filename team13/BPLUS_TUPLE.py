@@ -176,7 +176,8 @@ class BPLUS_TUPLE:
     # alterAddPK method - Retorna una lista de las hojas
     def verify_Nodes(self, columns):
         dataList = []
-        dataList = self._verify_Nodes(self.__root, dataList, columns)
+        if self.__root is not None:
+            dataList = self._verify_Nodes(self.__root, dataList, columns)
         return dataList
 
     def _verify_Nodes(self, tmp, dataList, columns):

@@ -16,7 +16,7 @@ def createDatabase(nameDb):
             DataBase.insertar(tabla, nameDb)
             return 0
         elif busqueda != None:
-            return 2  
+            return 2
     return 1
 
 
@@ -93,7 +93,7 @@ def alterAddPK(database, table, columns):
         return 4
     if not tabla.verifyColumns(columns):
         return 5
-    numero = tabla.alterAddPk(columns)
+    return tabla.alterAddPk(columns)
 
 
 def alterTable(database, tableOld, tableNew):
@@ -133,10 +133,10 @@ def alterAddColumn(database, table, default):
                 tabla.bPlus.alterAddColumn(default)
                 return 0
     except:
-        return 1    
+        return 1
 
-    
-def dropTable(database,table):
+
+def dropTable(database, table):
     BaseDatos = DataBase.buscar(database)
     Tabla = BaseDatos.avlTable.buscar(table)
     if Tabla != None:
@@ -177,23 +177,25 @@ def loadCSV(file, database, table):
     except:
         return []
 
+
 def extractRow(database, table, columns):
     try:
-       base = DataBase.buscar(str(database))
+        base = DataBase.buscar(str(database))
         if base is not None:
             tabla = base.avlTable.buscar(table)
             if tabla is not None:
                 return tabla.bPlus.extractRow(columns)
             return []
-        return []    
+        return []
     except:
         return []
+
 
 def update(database, table, register, columns):
     try:
         base = DataBase.buscar(str(database))
         if base is not None:
-            tabla =  base.avlTable.buscar(table)
+            tabla = base.avlTable.buscar(table)
             if tabla is not None:
                 return tabla.bPlus.update(register, columns)
             return 3
@@ -201,11 +203,12 @@ def update(database, table, register, columns):
     except:
         return 1
 
+
 def truncate(database, table):
     try:
         base = DataBase.buscar(str(database))
         if base is not None:
-            tabla =  base.avlTable.buscar(table)
+            tabla = base.avlTable.buscar(table)
             if tabla is not None:
                 return tabla.bPlus.truncate()
             return 3
