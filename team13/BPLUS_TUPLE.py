@@ -80,8 +80,6 @@ class BPLUS_TUPLE:
             for i in columns:
                 if type(i) is str:
                     pk.append(i)
-                elif (type(i) is int) and (len(columns) == 1):
-                    pk = i
                 else: 
                     pk.append(str(i))
             pk = '-'.join(pk)
