@@ -31,8 +31,8 @@ class Nodo:
 
     def alterAddPk(self, columns):
         bandera = True
-        dataList = self.bPlus.verify_Nodes(columns)
-        if len(dataList) is not 0:
+        dataList = self.bPlus.verify_Nodes()
+        if len(dataList) != 0:
             for i in columns:
                 listaColumna = []
                 for j in dataList:

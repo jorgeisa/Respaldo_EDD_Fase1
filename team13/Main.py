@@ -79,7 +79,8 @@ def test():
     print(insert('DB4', 'Table1_DB4', [1, "Manuel"]), end='-')
     print(insert('DB4', 'Table1_DB4', [2, "Gabriela"]), end='-')
     print(insert('DB4', 'Table1_DB4', [3, "Diego"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [4, "Diego"]))
+    print(insert('DB4', 'Table1_DB4', [4, "Diego2"]))
+    print(insert('DB4', 'Table1_DB4', [5, "Diego3"]))
 
     print('Colocando las llaves primarias con alter')
     print(alterAddPK('DB4', 'Table1_DB4', [1]))
