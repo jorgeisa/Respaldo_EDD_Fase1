@@ -25,6 +25,17 @@ class Nodo:
             return True
         return False
 
+    # Verifica que la columna a eliminar no sea  PK
+    def verifyColumnPk(self, columnNumber):
+        if (columnNumber in self.listPk) or (self.numberColumns == 1):
+            return True
+        return False
+
+    def verifyOutOfRange(self, column):
+        if 0 <= column <= (self.numberColumns - 1):
+            return False
+        return True
+
     def updateListPk(self, newListPk):
         self.listPk = []
         self.listPk = newListPk
@@ -42,6 +53,7 @@ class Nodo:
                         bandera = False
                         return 1
 
+
         if bandera:
             self.updateListPk(columns)
             self.bPlus.set_PK(columns)
@@ -51,6 +63,7 @@ class Nodo:
                 self.bPlus.set_root(None)  # "Eliminando" arbol
                 for i in dataList:
                     self.bPlus.insert(i.register)
+            # self.bPlus.graphTree()
             return 0
 
     def alterDropPk(self):
@@ -64,7 +77,6 @@ class Nodo:
             self.bPlus.set_root(None) # "Eliminando" arbol
             for i in dataList:
                 self.bPlus.insert(i.register)
-
             # self.bPlus.graphTree()
         return 0
 

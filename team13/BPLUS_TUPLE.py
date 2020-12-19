@@ -46,7 +46,7 @@ class BPLUS_TUPLE:
                     self.hide = True
                     pk = self.contador
                     self.contador += 1
-                self.__root = self.__root.add_key(NodeTBPlus(pk,register))
+                self.__root = self.__root.add_key(NodeTBPlus(pk, register))
                 return 0
             return 5
         else:
@@ -191,7 +191,7 @@ class BPLUS_TUPLE:
 
     def __extractReg(self,nodo,registros):
         if len(nodo.get_chlds()) != 0:
-            self.__extractReg(nodo.get_chlds()[0],registros)
+            self.__extractReg(nodo.get_chlds()[0], registros)
         else:
             for i in nodo.get_keys():
                 registros.append(i.value)
@@ -215,6 +215,20 @@ class BPLUS_TUPLE:
                     registros.append(i.register[columnNumber])
             if nodo.get_next() is not None:
                 self.__extractRegRange(nodo.get_next(),registros)
+
+    def alterDropColumn(self, column):
+        self._alterDropColumn(self.__root, column)
+        self.__size -= 1
+        return 0
+
+    def _alterDropColumn(self, tmp, column):
+        if len(tmp.get_chlds()) != 0:
+            self._alterDropColumn(tmp.get_chlds()[0], column)
+        else:
+            for i in tmp.get_keys():
+                i.register.pop(column)
+            if tmp.get_next() is not None:
+                self._alterDropColumn(tmp.get_next(), column)
 
 class PageTBPlus:
     
@@ -556,5 +570,5 @@ class NodeTBPlus:
 
     def __init__(self, PK, register):
         self.value = PK
-        self.register = register
+        self.register = register  # [2, "Gabriela"]
 

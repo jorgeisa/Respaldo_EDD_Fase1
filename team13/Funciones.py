@@ -163,6 +163,25 @@ def alterAddColumn(database, table, default):
         return 1
 
 
+def alterDropColumn(database, table, columnNumber):
+    try:
+        dataB = DataBase.buscar(str(database))
+        if dataB is None:
+            return 2
+        tabla = dataB.avlTable.buscar(str(table))
+        if tabla is None:
+            return 3
+        if tabla.verifyColumnPk(columnNumber):
+            return 4
+        if tabla.verifyOutOfRange(columnNumber):
+            return 5
+        contador = tabla.numberColumns
+        tabla.numberColumns = contador - 1
+        return tabla.bPlus.alterDropColumn(columnNumber)
+    except:
+        return 1
+
+
 def dropTable(database, table):
     BaseDatos = DataBase.buscar(database)
     Tabla = BaseDatos.avlTable.buscar(table)
@@ -243,6 +262,7 @@ def truncate(database, table):
     except:
         return 1
 
+
 def extractTable(database,table):
     try:
         BaseDatos = DataBase.buscar(database)
@@ -254,6 +274,7 @@ def extractTable(database,table):
             return None
     except:
         return None
+
 
 def extractRangeTable(database,table,columnNumber,lower,upper):
     try:

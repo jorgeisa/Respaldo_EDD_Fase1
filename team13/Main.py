@@ -76,11 +76,15 @@ def test():
     print(showTables('DB4'))
 
     print('\nInsertando tuplas en DB4:')
-    print(insert('DB4', 'Table1_DB4', [1, "Manuel"]), end='-')
+    print(insert('DB4', 'Table1_DB4', ["sddd", "Manuel"]), end='-')
     print(insert('DB4', 'Table1_DB4', [2, "Gabriela"]), end='-')
     print(insert('DB4', 'Table1_DB4', [3, "Diego"]), end='-')
     print(insert('DB4', 'Table1_DB4', [4, "Diego2"]))
     print(insert('DB4', 'Table1_DB4', [5, "Diego3"]))
+
+    print("\nBorrando una columna de Table1_DB4:")
+    print(alterDropColumn('DB4', 'Table1_DB4', 0))
+    print(alterDropColumn('DB4', 'Table1_DB4', 0))
 
     print('1. Colocando las llaves primarias con alter')
     print(alterAddPK('DB4', 'Table1_DB4', [1]))
