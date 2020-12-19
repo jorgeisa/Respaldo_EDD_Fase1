@@ -255,9 +255,7 @@ def alterDropColumn(database, table, columnNumber):
             return 4
         if tabla.verifyOutOfRange(columnNumber):
             return 5
-        contador = tabla.numberColumns
-        tabla.numberColumns = contador - 1
-        valor = tabla.bPlus.alterDropColumn(columnNumber)
+        valor = tabla.bPlus.alterDropColumn(columnNumber, tabla)
         Save(DataBase, "BD")
         return valor
     except:

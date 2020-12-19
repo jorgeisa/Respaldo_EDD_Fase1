@@ -249,9 +249,16 @@ class BPLUS_TUPLE:
                 self.__extractRegRange(nodo.get_next(),registros)
 
     #################### ISAAC ############################
-    def alterDropColumn(self, column):
+    def alterDropColumn(self, column, tabla):
         self._alterDropColumn(self.__root, column)
+        for i in range(len(self.__PK)):
+            if self.__PK[i] > column:
+                self.__PK[i] -= 1
         self.__size -= 1
+        tabla.numberColumns -= 1
+        tabla.listPk = []
+        for i in self.__PK:
+            tabla.listPk.append(i)
         return 0
 
     #################### ISAAC ############################
