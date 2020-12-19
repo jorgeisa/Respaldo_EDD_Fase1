@@ -1,5 +1,5 @@
 #################### DILAN  ############################
-from os import name
+import os
 import re
 import pickle
 import shutil
