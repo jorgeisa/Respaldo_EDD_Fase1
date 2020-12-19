@@ -232,6 +232,19 @@ class AVL_DB:
 
         return bases
 
+    def lista_bases(self):
+        lista = []
+        lista_db = self._lista_bases(self.raiz, lista)
+        return lista_db
+
+    def _lista_bases(self, nodo, lista):
+        if nodo is not None:
+            lista.append(nodo.name)
+            self._lista_bases(nodo.izq, lista)
+            self._lista_bases(nodo.der, lista)
+            return lista
+
+
     # Metodo para actualizar
     def actualizar(self, valor_actual, nuevo_valor):
         nodo = self.buscar(valor_actual)

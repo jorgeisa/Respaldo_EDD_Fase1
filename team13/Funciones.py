@@ -270,7 +270,3 @@ def graficarTablas(database):
         return avl
 
 
-#Pruebas
-createDatabase('Almacen')
-createTable('Almacen','Tienda1',2)
-print(extractTable('Almacen','wefewg'))

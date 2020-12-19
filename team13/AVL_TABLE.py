@@ -298,3 +298,15 @@ class AVL_TABLE:
             return 'exito'
         else:
             return 'error'
+
+    def lista_tablas(self):
+        lista = []
+        lista_db = self._lista_tablas(self.raiz, lista)
+        return lista_db
+
+    def _lista_tablas(self, nodo, lista):
+        if nodo is not None:
+            lista.append(nodo.name)
+            self._lista_tablas(nodo.izq, lista)
+            self._lista_tablas(nodo.der, lista)
+            return lista

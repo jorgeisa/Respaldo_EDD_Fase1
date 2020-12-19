@@ -2,6 +2,35 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import filedialog
 from tkinter import messagebox
+from Funciones import *
+
+createDatabase('DB1')
+createDatabase('DB2')
+createDatabase('DB3')
+createDatabase('DB4')
+createDatabase('DB5')
+#DataBase.graficar()
+
+
+createTable('DB2', 'Table1_DB2', 2)
+createTable('DB2', 'Table2_DB2', 2)
+createTable('DB2', 'Table3_DB2', 2)
+createTable('DB2', 'Table4_DB2', 2)
+createTable('DB2', 'Table5_DB2', 2)
+createTable('DB2', 'Table6_DB2', 2)
+
+
+createTable('DB4', 'Table1_DB4', 2)
+createTable('DB4', 'Table2_DB4', 2)
+createTable('DB4', 'Table3_DB4', 2)
+createTable('DB4', 'Table4_DB4', 2)
+createTable('DB4', 'Table5_DB4', 2)
+
+insert('DB4', 'Table1_DB4', [1, "Manuel"])
+insert('DB4', 'Table1_DB4', [2, "Gabriela"])
+insert('DB4', 'Table1_DB4', [3, "Diego"])
+insert('DB4', 'Table1_DB4', [4, "Diego2"])
+insert('DB4', 'Table1_DB4', [5, "Diego3"])
 
 
 def centrar_ventana(app, ancho, alto):
@@ -21,14 +50,17 @@ def configuracion_defecto(app):
 
 
 def ventana_imagen(imagen):
-    app = Toplevel()
-    configuracion_defecto(app)
-    app.state('zoomed')
+    try:
+        app = Toplevel()
+        configuracion_defecto(app)
+        app.state('zoomed')
 
-    img = PhotoImage(file='./images/'+imagen+'')
-    label = Label(app, image=img)
-    label.image = img
-    label.grid(row=0, column=0)
+        img = PhotoImage(file='../team13/'+imagen+'')
+        label = Label(app, image=img)
+        label.image = img
+        label.grid(row=0, column=0)
+    except:
+        print('Imagen no existe')
 
 
 def fondo(app):
@@ -94,7 +126,8 @@ def ventana_db(ventana):
 
     # Selección del combobox
     def selection_changed(event):
-        ventana_lista_tablas(app2, combo.get())
+        seleccion = combo.get()
+        ventana_lista_tablas(app2, seleccion)
 
     # Combobox
     fuente = ("Georgia", 10)
@@ -102,11 +135,12 @@ def ventana_db(ventana):
     combo.place(x=150, y=330)
 
     Label(app2, text="Seleccionar DB",  bg="#F0FFFF", font=("Georgia", 13)).place(x=180, y=300)
-    combo["values"] = ["DB1"]
+    combo["values"] = DataBase.lista_bases()
     combo.bind("<<ComboboxSelected>>", selection_changed)
 
     # Obtener imagen de la lista de db
-    img = 'Alien.png'
+    DataBase.graficar()
+    img = 'AVL_DB.png'
     boton_estructura = Button(app2, text="Ver estructura", bg="#FFFFFF", compound="top", font=("Georgia", 10), command=lambda: ventana_imagen(img))
     boton_estructura.place(x=380, y=5)
 
@@ -133,29 +167,29 @@ def ventana_lista_tablas(ventana, db):
     combo.place(x=150, y=350)
 
     Label(app, text="Tuplas de DB:\n"+db, bg="#F0FFFF", font=("Georgia", 13)).place(x=190, y=300)
-    combo["values"] = ["lista de tablas"]
+    db = DataBase.buscar(db)
+    lista_tablas = db.avlTable.lista_tablas()
+    print(db.name+' ', lista_tablas)
+    combo["values"] = lista_tablas
     combo.bind("<<ComboboxSelected>>", selection_changed)
 
     # Obtener imagen de la lista de db
-    img = 'fondo.png'
-    boton_estructura = Button(app, text="Ver estructura", bg="#FFFFFF", compound="top", font=("Georgia", 10), command=lambda: ventana_imagen(img))
-    boton_estructura.place(x=380, y=5)
+    if lista_tablas is None:
+        messagebox.showinfo('', 'LA DB NO TIENE TABLAS')
+    else:
+        db.avlTable.graficar()
+        img = 'AVL_T.png'
+        boton_estructura = Button(app, text="Ver estructura", bg="#FFFFFF", compound="top", font=("Georgia", 10), command=lambda: ventana_imagen(img))
+        boton_estructura.place(x=380, y=5)
 
     boton_regresar = Button(app, text="Regresar", bg="#FFFFFF", compound="top", font=("Georgia", 10), command=lambda: ventana_db(app))
     boton_regresar.place(x=10, y=5)
 
-    # ---------------------------------------------------- FUNCIONES ---------------------------------------------------
-    def cargar_tablas(combo_box):
-        # Cargar datos de prueba
-        array = []
-        for i in range(0, 100):
-            array.append(i)
-        combo_box['values'] = array
 
-    cargar_tablas(combo)
 
 
 def ventana_tupla(ventana, tupla, db):
+    print(tupla)
     if ventana != '':
         ventana.withdraw()
     app = Toplevel()
@@ -176,13 +210,22 @@ def ventana_tupla(ventana, tupla, db):
     combo = ttk.Combobox(app, font=("Georgia", 10))
     combo.place(x=150, y=300)
 
+    db = DataBase.buscar(str(db.name))
+    tabla = db.avlTable.buscar(tupla)
+    lista_tuplas = tabla.bPlus.lista_tuplas()
+
     Label(app, text="Registro de la tupla:\n" + tupla, bg="#F0FFFF", font=("Georgia", 13)).place(x=180, y=250)
-    combo["values"] = ['Registro1', 'Registro2', 'Registro3']
+    combo["values"] = lista_tuplas
     combo.bind("<<ComboboxSelected>>", selection_changed)
 
-    img = 'B+.png'
-    boton_estructura = Button(app, text="Ver estructura", bg="#FFFFFF", compound="top", font=("Georgia", 10), command=lambda: ventana_imagen(img))
-    boton_estructura.place(x=380, y=5)
+    if lista_tuplas is None:
+        messagebox.showinfo('', 'LA TABLA NO TIENE REGISTROS')
+    else:
+        tabla.bPlus.graphTree()
+        img = 'ArbolB+.png'
+        boton_estructura = Button(app, text="Ver estructura", bg="#FFFFFF", compound="top", font=("Georgia", 10), command=lambda: ventana_imagen(img))
+        boton_estructura.place(x=380, y=5)
+
     boton_regresar = Button(app, text="Regresar", bg="#FFFFFF", compound="top", font=("Georgia", 10), command=lambda: ventana_lista_tablas(app, db))
     boton_regresar.place(x=10, y=5)
 

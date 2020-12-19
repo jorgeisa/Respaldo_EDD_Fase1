@@ -154,13 +154,17 @@ class BPLUS_TUPLE:
         return cadena
     
     def alterAddColumn(self, new_column):
-        contador = 0
-        self._alterAddColumn(self.__root, new_column, contador)
+        self._alterAddColumn(self.__root, new_column)
         self.__size += 1
         print('NUEVO TAMAÑO DE LA TABLA: ', self.__size)
 
-    def _alterAddColumn(self, temp, new_column, contador):
-        temp.add_new_column(temp, new_column, contador)
+    def _alterAddColumn(self, temp, new_column):
+        temp.add_new_column(temp, new_column)
+
+    def lista_tuplas(self):
+        lista = []
+        lista_tuplas = self.__root.lista__tuplas(self.__root, lista)
+        return lista_tuplas
 
     # alterAddPK method - Retorna una lista de las hojas
     def verify_Nodes(self):
@@ -508,15 +512,27 @@ class PageTBPlus:
         return cadena
     
     # Metodo para agregar nueva columna a la tabla
-    def add_new_column(self, temp, new_column, contador):
+    def add_new_column(self, temp, new_column):
         if len(temp.get_chlds()) != 0:
-            self.add_new_column(temp.get_chlds()[0], new_column, contador)
+            self.add_new_column(temp.get_chlds()[0], new_column)
         else:
             for i in temp.get_keys():
                 i.register.append(new_column)
 
             if temp.get_next() is not None:
-                self.add_new_column(temp.get_next(), new_column, contador)    
+                self.add_new_column(temp.get_next(), new_column)
+
+    def lista__tuplas(self, temp, lista):
+        if len(temp.get_chlds()) != 0:
+            self.lista__tuplas(temp.get_chlds()[0], lista)
+        else:
+            for i in temp.get_keys():
+                lista.append(i.value)
+
+            if temp.get_next() is not None:
+                self.lista__tuplas(temp.get_next(), lista)
+
+        return lista
 
                 
 class NodeTBPlus:
