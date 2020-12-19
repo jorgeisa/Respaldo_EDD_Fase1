@@ -199,6 +199,23 @@ class BPLUS_TUPLE:
             if nodo.get_next() is not None:
                 self.__extractReg(nodo.get_next(),registros)
 
+    #extractRangeTable method - Retorna una lista con los registros dentro del rango
+    def extractRegRange(self,columnNumber,lower,upper):
+        registros = []
+        if self.__root is not None:
+            self.__extractRegRange(self.__root,registros,columnNumber,lower,upper)
+        return registros
+
+    def __extractRegRange(self,nodo,registros,columnNumber,lower,upper):
+        if len(nodo.get_chlds()) != 0:
+            self.__extractRegRange(nodo.get_chlds()[0],registros)
+        else:
+            for i in nodo.get_keys():
+                if i.register[columnNumber] >= lower and i.register[columnNumber] <= upper:
+                    registros.append(i.register[columnNumber])
+            if nodo.get_next() is not None:
+                self.__extractRegRange(nodo.get_next(),registros)
+
 class PageTBPlus:
     
     def __init__(self, grade):

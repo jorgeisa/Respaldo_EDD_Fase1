@@ -255,6 +255,18 @@ def extractTable(database,table):
     except:
         return None
 
+def extractRangeTable(database,table,columnNumber,lower,upper):
+    try:
+        BaseDatos = DataBase.buscar(database)
+        if BaseDatos != None:
+            Tabla = BaseDatos.avlTable.buscar(table)
+            if Tabla != None:
+                return Tabla.bPlus.extractRegRange(columnNumber,lower,upper)
+        else:
+            return None
+    except:
+        return None
+
 # FUNCIONALIDADES APARTE
 
 
