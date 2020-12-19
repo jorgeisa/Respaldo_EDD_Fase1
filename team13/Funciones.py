@@ -1,6 +1,8 @@
 #################### DILAN  ############################
 from os import name
 import re
+import pickle
+import shutil
 from AVL_DB import AVL_DB as AvlDb
 from AVL_TABLE import AVL_TABLE as AvlT
 from BPLUS_TUPLE import BPLUS_TUPLE as bPlusT
@@ -10,14 +12,25 @@ DataBase = AvlDb()
 #################### KEVIN ############################
 pattern = r'[_]*[A-Za-z]+[_]*[_0-9]*[_]*'
 
+def CheckData():
+    if not os.path.isdir(os.getcwd() + "\\Data\\"):
+        try:
+            os.mkdir(os.getcwd() + "\\Data")
+            return False
+        except Exception as err:
+            print(err)
+    return True
 
 #################### DILAN ############################
 def createDatabase(nameDb):
+    if CheckData():
+        DataBase = Load("BD")
     if re.match(pattern, nameDb):
         busqueda = DataBase.buscar(str(nameDb))
         if busqueda == None:
             tabla = AvlT()
             DataBase.insertar(tabla, nameDb)
+            Save(DataBase, "BD")
             return 0
         elif busqueda != None:
             return 2
@@ -26,6 +39,8 @@ def createDatabase(nameDb):
 
 #################### DILAN ############################
 def showDatabases():
+    if CheckData():
+        DataBase = Load("BD")
     bases = DataBase.recorrido()
     lista = bases.split(' ')
     lista.pop()
@@ -45,6 +60,7 @@ def alterDatabase(databaseOld, databaseNew):
         else:
             if db is not None:
                 if DataBase.actualizar(databaseOld, databaseNew) == 'exito':
+                    Save(DataBase, "BD")
                     return 0
                 else:
                     return 1
@@ -54,6 +70,8 @@ def alterDatabase(databaseOld, databaseNew):
 
 #################### ISAAC ############################
 def dropDatabase(database):
+    if CheckData():
+        DataBase = Load("BD")
     try:
         if re.match(pattern, database):
             dataB = DataBase.buscar(str(database))
@@ -61,6 +79,7 @@ def dropDatabase(database):
                 return 2
             else:
                 DataBase.eliminarDB(database)
+                Save(DataBase, "BD")
                 return 0
         else:
             return 1
@@ -70,6 +89,8 @@ def dropDatabase(database):
 
 #################### ISAAC ############################
 def createTable(database, table, numberColumns):
+    if CheckData():
+        DataBase = Load("BD")
     try:
         dataB = DataBase.buscar(str(database))
         if dataB is not None:
@@ -77,6 +98,7 @@ def createTable(database, table, numberColumns):
             if tablaBuscada is None:
                 bPlus = bPlusT(5, numberColumns)
                 dataB.avlTable.insertar(bPlus, table, numberColumns)
+                Save(DataBase, "BD")
                 return 0
             return 3
         return 2
@@ -86,6 +108,8 @@ def createTable(database, table, numberColumns):
 
 #################### ISAAC ############################
 def showTables(database):
+    if CheckData():
+        DataBase = Load("BD")
     try:
         dataB = DataBase.buscar(str(database))
         if dataB is not None:
@@ -102,6 +126,8 @@ def showTables(database):
 
 #################### DILAN ############################
 def extractTable(database, table):
+    if CheckData():
+        DataBase = Load("BD")
     try:
         BaseDatos = DataBase.buscar(database)
         if BaseDatos != None:
@@ -116,6 +142,8 @@ def extractTable(database, table):
 
 #################### DILAN ############################
 def extractRangeTable(database, table, columnNumber, lower, upper):
+    if CheckData():
+        DataBase = Load("BD")
     try:
         BaseDatos = DataBase.buscar(database)
         if BaseDatos != None:
@@ -141,7 +169,9 @@ def alterAddPK(database, table, columns):
             return 4
         if not tabla.verifyColumns(columns):
             return 5
-        return tabla.alterAddPk(columns)
+        valor = tabla.alterAddPk(columns) 
+        Save(DataBase, "BD")
+        return valor
     except:
         return 1
 
@@ -157,7 +187,9 @@ def alterDropPK(database, table):
             return 3
         if tabla.verifyListPk():
             return 4
-        return tabla.alterDropPk()
+        valor = tabla.alterDropPk()
+        Save(DataBase, "BD")
+        return valor
     except:
         return 1
 
@@ -180,6 +212,7 @@ def alterTable(database, tableOld, tableNew):
                 else:
                     if table is not None:
                         if db.avlTable.actualizar(tableOld, tableNew) == 'exito':
+                            Save(DataBase, "BD")
                             return 0
         else:
             return 1
@@ -189,6 +222,8 @@ def alterTable(database, tableOld, tableNew):
 
 #################### KEVIN ############################
 def alterAddColumn(database, table, default):
+    if CheckData():
+        DataBase = Load("BD")
     try:
         db = DataBase.buscar(str(database))
         if db is None:
@@ -199,6 +234,7 @@ def alterAddColumn(database, table, default):
                 return 3
             else:
                 tabla.bPlus.alterAddColumn(default)
+                Save(DataBase, "BD")
                 return 0
     except:
         return 1
@@ -206,6 +242,8 @@ def alterAddColumn(database, table, default):
 
 #################### ISAAC ############################
 def alterDropColumn(database, table, columnNumber):
+    if CheckData():
+        DataBase = Load("BD")
     try:
         dataB = DataBase.buscar(str(database))
         if dataB is None:
@@ -219,17 +257,22 @@ def alterDropColumn(database, table, columnNumber):
             return 5
         contador = tabla.numberColumns
         tabla.numberColumns = contador - 1
-        return tabla.bPlus.alterDropColumn(columnNumber)
+        valor = tabla.bPlus.alterDropColumn(columnNumber)
+        Save(DataBase, "BD")
+        return valor
     except:
         return 1
 
 
 #################### KEVIN ############################
 def dropTable(database, table):
+    if CheckData():
+        DataBase = Load("BD")
     BaseDatos = DataBase.buscar(database)
     Tabla = BaseDatos.avlTable.buscar(table)
     if Tabla != None:
         BaseDatos.avlTable.eliminar(table)
+        Save(DataBase, "BD")
         return 0
     elif Tabla == None:
         return 2
@@ -238,12 +281,16 @@ def dropTable(database, table):
 
 #################### JORGE ############################
 def insert(database, table, register):
+    if CheckData():
+        DataBase = Load("BD")
     try:
         base = DataBase.buscar(str(database))
         if base is not None:
             tabla = base.avlTable.buscar(table)
             if tabla is not None:
-                return tabla.bPlus.insert(register)
+                valor = tabla.bPlus.insert(register) 
+                Save(DataBase, "BD")
+                return valor
             return 3
         return 2
     except:
@@ -252,6 +299,8 @@ def insert(database, table, register):
 
 #################### JORGE ############################
 def loadCSV(file, database, table):
+    if CheckData():
+        DataBase = Load("BD")
     try:
         base = DataBase.buscar(str(database))
         if base is not None:
@@ -262,6 +311,7 @@ def loadCSV(file, database, table):
                 for i in registers:
                     register = i.split(',')
                     results.append(tabla.bPlus.insert(register))
+                Save(DataBase, "BD")
                 return results
             return [3]
         return [2]
@@ -271,6 +321,8 @@ def loadCSV(file, database, table):
 
 #################### JORGE ############################
 def extractRow(database, table, columns):
+    if CheckData():
+        DataBase = Load("BD")
     try:
         base = DataBase.buscar(str(database))
         if base is not None:
@@ -285,12 +337,16 @@ def extractRow(database, table, columns):
 
 #################### JORGE ############################
 def update(database, table, register, columns):
+    if CheckData():
+        DataBase = Load("BD")
     try:
         base = DataBase.buscar(str(database))
         if base is not None:
             tabla = base.avlTable.buscar(table)
             if tabla is not None:
-                return tabla.bPlus.update(register, columns)
+                valor = tabla.bPlus.update(register, columns) 
+                Save(DataBase, "BD")
+                return valor
             return 3
         return 2
     except:
@@ -304,12 +360,16 @@ def delete(database, table, columns):
 
 #################### JORGE ############################
 def truncate(database, table):
+    if CheckData():
+        DataBase = Load("BD")
     try:
         base = DataBase.buscar(str(database))
         if base is not None:
             tabla = base.avlTable.buscar(table)
             if tabla is not None:
-                return tabla.bPlus.truncate()
+                valor = tabla.bPlus.truncate()
+                Save(DataBase, "BD")
+                return valor
             return 3
         return 2
     except:
@@ -317,6 +377,21 @@ def truncate(database, table):
 
 
 # FUNCIONALIDADES APARTE
+
+def Save(objeto, nombre):
+    file = open(nombre + ".bin", "wb")
+    file.write(pickle.dumps(objeto))
+    file.close()
+    if os.path.isfile(os.getcwd() + "\\Data\\" + nombre + ".bin"):
+        os.remove(os.getcwd() + "\\Data\\" + nombre + ".bin")
+    shutil.move(os.getcwd() + "\\" + nombre + ".bin" , os.getcwd() + "\\Data")
+
+
+def Load(nombre):
+    file = open(os.getcwd() + "\\Data\\" + nombre + ".bin", "rb")
+    objeto = file.read()
+    file.close()
+    return pickle.loads(objeto)
 
 #################### NO AGREGAR ############################
 def graficarTablas(database):
