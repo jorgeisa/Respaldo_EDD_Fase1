@@ -2,7 +2,7 @@ import os
 
 
 class Nodo:
-
+    #################### ISAAC ############################
     def __init__(self, bPlus, name, numberColumns):
         self.bPlus = bPlus
         self.name = name
@@ -14,32 +14,38 @@ class Nodo:
         self.der = None
         self.factor = 1
 
+    #################### ISAAC ############################
     def verifyListPk(self):
         if len(self.listPk) == 0:
             return True
         return False
 
+    #################### ISAAC ############################
     def verifyColumns(self, columnsList):
         columnas = len(columnsList)
         if (columnas > 0) and (columnas <= self.numberColumns):
             return True
         return False
 
+    #################### ISAAC ############################
     # Verifica que la columna a eliminar no sea  PK
     def verifyColumnPk(self, columnNumber):
         if (columnNumber in self.listPk) or (self.numberColumns == 1):
             return True
         return False
 
+    #################### ISAAC ############################
     def verifyOutOfRange(self, column):
         if 0 <= column <= (self.numberColumns - 1):
             return False
         return True
 
+    #################### ISAAC ############################
     def updateListPk(self, newListPk):
         self.listPk = []
         self.listPk = newListPk
 
+    #################### ISAAC ############################
     def alterAddPk(self, columns):
         bandera = True
         dataList = self.bPlus.verify_Nodes()
@@ -66,6 +72,7 @@ class Nodo:
             # self.bPlus.graphTree()
             return 0
 
+    #################### ISAAC ############################
     def alterDropPk(self):
         self.listPk = []
         self.bPlus.set_PK([])
@@ -80,6 +87,7 @@ class Nodo:
             # self.bPlus.graphTree()
         return 0
 
+    ####################Ya esta############################
 class AVL_TABLE:
 
     def __init__(self):
@@ -288,10 +296,14 @@ class AVL_TABLE:
 
         # Metodo para buscar
 
+    ####################Ya esta############################
+
+    #################### DILAN ############################
     def buscar(self, name):
         resultado = self.__buscar(name, self.raiz)
         return resultado
 
+    #################### DILAN ############################
     def __buscar(self, name, nodo):
         if nodo is not None:
             if name < nodo.name:
@@ -300,6 +312,7 @@ class AVL_TABLE:
                 nodo = self.__buscar(name, nodo.der)
         return nodo
 
+    #################### KEVIN ############################
     # Metodo para actualizar
     def actualizar(self, valor_actual, nuevo_valor):
         nodo = self.buscar(valor_actual)
@@ -311,11 +324,13 @@ class AVL_TABLE:
         else:
             return 'error'
 
+    #################### KEVIN ############################
     def lista_tablas(self):
         lista = []
         lista_db = self._lista_tablas(self.raiz, lista)
         return lista_db
 
+    #################### KEVIN ############################
     def _lista_tablas(self, nodo, lista):
         if nodo is not None:
             lista.append(nodo.name)

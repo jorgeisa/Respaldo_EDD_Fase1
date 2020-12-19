@@ -1,3 +1,4 @@
+#################### DILAN  ############################
 from os import name
 import re
 from AVL_DB import AVL_DB as AvlDb
@@ -5,9 +6,12 @@ from AVL_TABLE import AVL_TABLE as AvlT
 from BPLUS_TUPLE import BPLUS_TUPLE as bPlusT
 
 DataBase = AvlDb()
+
+#################### KEVIN ############################
 pattern = r'[_]*[A-Za-z]+[_]*[_0-9]*[_]*'
 
 
+#################### DILAN ############################
 def createDatabase(nameDb):
     if re.match(pattern, nameDb):
         busqueda = DataBase.buscar(str(nameDb))
@@ -20,6 +24,7 @@ def createDatabase(nameDb):
     return 1
 
 
+#################### DILAN ############################
 def showDatabases():
     bases = DataBase.recorrido()
     lista = bases.split(' ')
@@ -27,6 +32,7 @@ def showDatabases():
     return lista
 
 
+#################### KEVIN ############################
 def alterDatabase(databaseOld, databaseNew):
     if (re.match(pattern, databaseOld)) and (re.match(pattern, databaseNew)):
         db = DataBase.buscar(str(databaseOld))
@@ -46,6 +52,7 @@ def alterDatabase(databaseOld, databaseNew):
         return 1
 
 
+#################### ISAAC ############################
 def dropDatabase(database):
     try:
         if re.match(pattern, database):
@@ -61,6 +68,7 @@ def dropDatabase(database):
         return 1
 
 
+#################### ISAAC ############################
 def createTable(database, table, numberColumns):
     try:
         dataB = DataBase.buscar(str(database))
@@ -76,6 +84,7 @@ def createTable(database, table, numberColumns):
         return 1
 
 
+#################### ISAAC ############################
 def showTables(database):
     try:
         dataB = DataBase.buscar(str(database))
@@ -91,6 +100,35 @@ def showTables(database):
         return None
 
 
+#################### DILAN ############################
+def extractTable(database, table):
+    try:
+        BaseDatos = DataBase.buscar(database)
+        if BaseDatos != None:
+            Tabla = BaseDatos.avlTable.buscar(table)
+            if Tabla != None:
+                return Tabla.bPlus.extractReg()
+        else:
+            return None
+    except:
+        return None
+
+
+#################### DILAN ############################
+def extractRangeTable(database, table, columnNumber, lower, upper):
+    try:
+        BaseDatos = DataBase.buscar(database)
+        if BaseDatos != None:
+            Tabla = BaseDatos.avlTable.buscar(table)
+            if Tabla != None:
+                return Tabla.bPlus.extractRegRange(columnNumber, lower, upper)
+        else:
+            return None
+    except:
+        return None
+
+
+#################### ISAAC############################
 def alterAddPK(database, table, columns):
     try:
         dataB = DataBase.buscar(str(database))
@@ -108,6 +146,7 @@ def alterAddPK(database, table, columns):
         return 1
 
 
+#################### ISAAC ############################
 def alterDropPK(database, table):
     try:
         dataB = DataBase.buscar(str(database))
@@ -123,6 +162,7 @@ def alterDropPK(database, table):
         return 1
 
 
+#################### KEVIN ############################
 def alterTable(database, tableOld, tableNew):
     try:
         if re.match(pattern, database):
@@ -147,6 +187,7 @@ def alterTable(database, tableOld, tableNew):
         return 1
 
 
+#################### KEVIN ############################
 def alterAddColumn(database, table, default):
     try:
         db = DataBase.buscar(str(database))
@@ -163,6 +204,7 @@ def alterAddColumn(database, table, default):
         return 1
 
 
+#################### ISAAC ############################
 def alterDropColumn(database, table, columnNumber):
     try:
         dataB = DataBase.buscar(str(database))
@@ -182,6 +224,7 @@ def alterDropColumn(database, table, columnNumber):
         return 1
 
 
+#################### KEVIN ############################
 def dropTable(database, table):
     BaseDatos = DataBase.buscar(database)
     Tabla = BaseDatos.avlTable.buscar(table)
@@ -193,6 +236,7 @@ def dropTable(database, table):
     return 1
 
 
+#################### JORGE ############################
 def insert(database, table, register):
     try:
         base = DataBase.buscar(str(database))
@@ -206,6 +250,7 @@ def insert(database, table, register):
         return 1
 
 
+#################### JORGE ############################
 def loadCSV(file, database, table):
     try:
         base = DataBase.buscar(str(database))
@@ -224,6 +269,7 @@ def loadCSV(file, database, table):
         return [1]
 
 
+#################### JORGE ############################
 def extractRow(database, table, columns):
     try:
         base = DataBase.buscar(str(database))
@@ -237,6 +283,7 @@ def extractRow(database, table, columns):
         return []
 
 
+#################### JORGE ############################
 def update(database, table, register, columns):
     try:
         base = DataBase.buscar(str(database))
@@ -250,6 +297,7 @@ def update(database, table, register, columns):
         return 1
 
 
+#################### JORGE ############################
 def truncate(database, table):
     try:
         base = DataBase.buscar(str(database))
@@ -263,34 +311,9 @@ def truncate(database, table):
         return 1
 
 
-def extractTable(database,table):
-    try:
-        BaseDatos = DataBase.buscar(database)
-        if BaseDatos != None:
-            Tabla = BaseDatos.avlTable.buscar(table)
-            if Tabla != None:
-                return Tabla.bPlus.extractReg()
-        else:
-            return None
-    except:
-        return None
-
-
-def extractRangeTable(database,table,columnNumber,lower,upper):
-    try:
-        BaseDatos = DataBase.buscar(database)
-        if BaseDatos != None:
-            Tabla = BaseDatos.avlTable.buscar(table)
-            if Tabla != None:
-                return Tabla.bPlus.extractRegRange(columnNumber,lower,upper)
-        else:
-            return None
-    except:
-        return None
-
 # FUNCIONALIDADES APARTE
 
-
+#################### NO AGREGAR ############################
 def graficarTablas(database):
     dataB = DataBase.buscar(database)
     if dataB is None:
@@ -301,5 +324,3 @@ def graficarTablas(database):
             avl.graficar()
             return 1
         return avl
-
-

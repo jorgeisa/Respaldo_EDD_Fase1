@@ -2,6 +2,7 @@ from AVL_TABLE import AVL_TABLE as AvlT
 import os
 
 
+####################Ya esta############################
 class Nodo:
 
     def __init__(self, avlTable, name):
@@ -12,6 +13,9 @@ class Nodo:
         self.factor = 1
 
 
+####################Ya esta############################
+
+#################### Ya esta ###########################
 class AVL_DB:
 
     def __init__(self):
@@ -231,7 +235,10 @@ class AVL_DB:
         bases += str(self.__recorrido(nodo.der))
 
         return bases
+    ####################Ya esta############################
 
+
+    ################ KEVIN ###########################
     def lista_bases(self):
         lista = []
         lista_db = self._lista_bases(self.raiz, lista)
@@ -244,7 +251,7 @@ class AVL_DB:
             self._lista_bases(nodo.der, lista)
             return lista
 
-
+    ################ KEVIN ###########################
     # Metodo para actualizar
     def actualizar(self, valor_actual, nuevo_valor):
         nodo = self.buscar(valor_actual)
@@ -256,8 +263,7 @@ class AVL_DB:
         else:
             return 'error'
 
+    ################ ISAAC ###########################
     # Metodo para el DropDatabase
     def eliminarDB(self, nodoDB):
         self.eliminar(nodoDB)
-
-

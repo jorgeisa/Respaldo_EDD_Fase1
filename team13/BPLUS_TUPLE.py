@@ -1,6 +1,7 @@
+#################### DILAN ############################
 import os
 
-
+#################### JORGE ############################
 class BPLUS_TUPLE:
     
     def __init__(self, grade, size):
@@ -14,25 +15,32 @@ class BPLUS_TUPLE:
         self.__PK = []
         self.contador = 1
         self.hide = False
-    
+
+    ####################Ya esta############################
     def get_root(self):
         return self.__root
-    
+
+    #################### ISAAC ############################
     def set_root(self, root):
         self.__root = root
-        
+
+    #################### ISAAC ############################
     def set_PK(self, pk):
         self.__PK = pk
-    
+
+    #################### ISAAC############################
     def get_PK(self, pk):
         return self.__PK
 
+    #################### ISAAC ############################
     def set_hide(self, hide):
         self.hide = hide
 
+    #################### ISAAC ############################
     def set_contador(self, contador):
         self.contador = contador
 
+    #################### JORGE ############################
     def insert(self, register: list) -> int:
         if self.__root is None:
             if len(register) == self.__size:
@@ -64,7 +72,8 @@ class BPLUS_TUPLE:
                 self.__root = self.__root.add_key(NodeTBPlus(pk,register))
                 return 0
             return 5
-    
+
+    #################### JORGE ############################
     def loadCSV(self, file: str) -> list:
         results = []
         registers = file.split('\n')
@@ -73,6 +82,7 @@ class BPLUS_TUPLE:
             results.append(self.insert(register))
         return results
 
+    #################### JORGE ############################
     def extractRow(self, columns: list) -> list:
        if self.__root is not None:
             pk = []
@@ -83,7 +93,8 @@ class BPLUS_TUPLE:
                 return self.__root._CallPage(pk)
        else:
             return []
-    
+
+    #################### JORGE ############################
     def update(self, register: dict, columns: list) -> int:
         if self.__root is not None:
             for column in register:
@@ -102,18 +113,22 @@ class BPLUS_TUPLE:
                 return 0
             return 4
         return 1
-    
+
+    #################### JORGE ############################
     def truncate(self) -> int:
         self.__root = None
         return 0
-    
+
+    #################### JORGE ############################
     def Search(self, key):
         if self.__root is not None:
             return self.__root.CallPage(key)
-    
+
+    #################### ya esta ############################
     # Print tree
     def showTree(self):
         self._showTree(self.__root, 0)
+
 
     def _showTree(self, tmp, level):
         print("Level", level, ": ", end="")
@@ -122,6 +137,9 @@ class BPLUS_TUPLE:
             for i in range(len(tmp.get_chlds())):
                 self._showTree(tmp.get_chlds()[i], level + 1)
 
+    #################### ya esta ############################
+
+    ####################Ya esta############################
     # graph tree
     def graphTree(self):
         if self.__root is not None:
@@ -146,26 +164,35 @@ class BPLUS_TUPLE:
             for i in range(len(tmp.get_chlds())):
                 cadena += self._graphTree(tmp.get_chlds()[i], level + 1)
         return cadena
-                
+
+    ####################Ya esta############################
+
+    ####################Ya esta############################
     # Rank = same to the nodes (leaves)
     def _rankLeaves(self, tmp):
         cadena = ""
         cadena += tmp.rankLeavesKeys(tmp)
         return cadena
-    
+
+    ####################Ya esta############################
+
+    #################### KEVIN ############################
     def alterAddColumn(self, new_column):
         self._alterAddColumn(self.__root, new_column)
         self.__size += 1
         print('NUEVO TAMAÑO DE LA TABLA: ', self.__size)
 
+    #################### KEVIN ############################
     def _alterAddColumn(self, temp, new_column):
         temp.add_new_column(temp, new_column)
 
+    #################### KEVIN ############################
     def lista_tuplas(self):
         lista = []
         lista_tuplas = self.__root.lista__tuplas(self.__root, lista)
         return lista_tuplas
 
+    #################### ISAAC ############################
     # alterAddPK method - Retorna una lista de las hojas
     def verify_Nodes(self):
         dataList = []
@@ -173,6 +200,7 @@ class BPLUS_TUPLE:
             self._verify_Nodes(self.__root, dataList)
         return dataList
 
+    #################### ISAAC ############################
     def _verify_Nodes(self, tmp, dataList):
         if len(tmp.get_chlds()) != 0:
             self._verify_Nodes(tmp.get_chlds()[0], dataList)
@@ -182,6 +210,7 @@ class BPLUS_TUPLE:
             if tmp.get_next() is not None:
                 self._verify_Nodes(tmp.get_next(), dataList)
 
+    #################### DILAN ############################
     #extractTable method - Retorna una lista con los registros
     def extractReg(self):
         registros = []
@@ -189,6 +218,7 @@ class BPLUS_TUPLE:
             self.__extractReg(self.__root,registros)
         return registros
 
+    #################### DILAN ############################
     def __extractReg(self,nodo,registros):
         if len(nodo.get_chlds()) != 0:
             self.__extractReg(nodo.get_chlds()[0], registros)
@@ -199,6 +229,7 @@ class BPLUS_TUPLE:
             if nodo.get_next() is not None:
                 self.__extractReg(nodo.get_next(),registros)
 
+    #################### DILAN ############################
     #extractRangeTable method - Retorna una lista con los registros dentro del rango
     def extractRegRange(self,columnNumber,lower,upper):
         registros = []
@@ -206,6 +237,7 @@ class BPLUS_TUPLE:
             self.__extractRegRange(self.__root,registros,columnNumber,lower,upper)
         return registros
 
+    #################### DILAN ############################
     def __extractRegRange(self,nodo,registros,columnNumber,lower,upper):
         if len(nodo.get_chlds()) != 0:
             self.__extractRegRange(nodo.get_chlds()[0],registros)
@@ -216,11 +248,13 @@ class BPLUS_TUPLE:
             if nodo.get_next() is not None:
                 self.__extractRegRange(nodo.get_next(),registros)
 
+    #################### ISAAC ############################
     def alterDropColumn(self, column):
         self._alterDropColumn(self.__root, column)
         self.__size -= 1
         return 0
 
+    #################### ISAAC ############################
     def _alterDropColumn(self, tmp, column):
         if len(tmp.get_chlds()) != 0:
             self._alterDropColumn(tmp.get_chlds()[0], column)
@@ -231,7 +265,8 @@ class BPLUS_TUPLE:
                 self._alterDropColumn(tmp.get_next(), column)
 
 class PageTBPlus:
-    
+
+    #################### JORGE ############################
     def __init__(self, grade):
         if grade < 3:
             self.__grade = 3
@@ -244,6 +279,7 @@ class PageTBPlus:
         self.__next = None
         self.__previous = None
 
+    ####################Ya esta############################
     def get_keys(self):
         return self.__keys
     
@@ -282,7 +318,10 @@ class PageTBPlus:
 
     def add_chld(self, chld):
         self.__childs.append(chld)
-    
+
+    ####################Ya esta############################
+
+    #################### JORGE ############################
     def add_key(self, key):
         if len(self.__keys) == 0:
             self.__keys.append(key)
@@ -314,6 +353,7 @@ class PageTBPlus:
                     aux = self.__childs[i].add_key(key)
                     return self.insert_childs(aux, i)
 
+    ####################Ya esta (¿JORGE?)############################
     def SplitPage(self):
         if (self.__grade % 2) > 0:
             index = int((self.__grade - 1) /2)
@@ -418,6 +458,7 @@ class PageTBPlus:
                 chld2.__father = temp
                 return temp
 
+    ####################Ya esta (¿JORGE?)############################
     def sort(self, key):
         for i in range(len(self.__keys)):
             if key.value < self.__keys[i].value:
@@ -425,7 +466,8 @@ class PageTBPlus:
                 break
             elif i == (len(self.__keys) - 1):
                 self.__keys.append(key)
-    
+
+    #################### JORGE ############################
     def insert_childs(self, aux, i):
         if type(aux) is list:
             self.__childs.pop(i)
@@ -441,7 +483,8 @@ class PageTBPlus:
         else:
             self.__childs[i] = aux
         return self
-    
+
+    ####################Ya esta (JORGE)?############################
     def CallPage(self, key):
         if (len(self.__childs) == 0) and (self.__father is None):
             return self.SearchTuple(key)
@@ -450,6 +493,9 @@ class PageTBPlus:
         else:
             return self.__childs[0].CallPage(key)
 
+    ####################Ya esta############################
+
+    #################### JORGE ############################
     def SearchTuple(self, key):
         if self is not None:
             for i in self.__keys:
@@ -459,7 +505,8 @@ class PageTBPlus:
                 return False
             else:
                 return self.__next.SearchTuple(key)
-    
+
+    #################### JORGE ############################
     def _CallPage(self, key):
         if (len(self.__childs) == 0) and (self.__father is None):
             return self._SearchTuple(key)
@@ -468,6 +515,7 @@ class PageTBPlus:
         else:
              return self.__childs[0]._CallPage(key)
 
+    #################### JORGE ############################
     def _SearchTuple(self, key):
         if self is not None:
             for i in self.__keys:
@@ -478,6 +526,7 @@ class PageTBPlus:
             else:
                 return self.__next._SearchTuple(key)
 
+    #################### ISAAC ############################
     # Show Keys of Page
     def showKeys(self):
         if not (len(self.__keys) == 0):
@@ -498,6 +547,7 @@ class PageTBPlus:
                 contador += 1
         print(" contador hijos: ", contador)
 
+    #################### ISAAC ############################
     # Graph and show keys
     def graphKeys(self, tmp, level):
         cadena = ""
@@ -530,7 +580,8 @@ class PageTBPlus:
                     for i in range(len(self.__childs)):
                         cadena += f"{tmp} -> {self.__childs[i]}\n"
         return cadena
-                        
+
+    ####################Ya esta############################
     # Rank = same to the nodes (leaves)
     def rankLeavesKeys(self, tmp):
         cadena = ""
@@ -541,7 +592,9 @@ class PageTBPlus:
             if tmp.get_next() is not None:
                 cadena += self.rankLeavesKeys(tmp.get_next())
         return cadena
-    
+    ####################Ya esta############################
+
+    #################### KEVIN ############################
     # Metodo para agregar nueva columna a la tabla
     def add_new_column(self, temp, new_column):
         if len(temp.get_chlds()) != 0:
@@ -553,6 +606,7 @@ class PageTBPlus:
             if temp.get_next() is not None:
                 self.add_new_column(temp.get_next(), new_column)
 
+    #################### KEVIN ############################
     def lista__tuplas(self, temp, lista):
         if len(temp.get_chlds()) != 0:
             self.lista__tuplas(temp.get_chlds()[0], lista)
@@ -565,10 +619,9 @@ class PageTBPlus:
 
         return lista
 
-                
+    # ################### JORGE ############################
 class NodeTBPlus:
-
     def __init__(self, PK, register):
         self.value = PK
-        self.register = register  # [2, "Gabriela"]
+        self.register = register
 
