@@ -298,6 +298,11 @@ def update(database, table, register, columns):
 
 
 #################### JORGE ############################
+def delete(database, table, columns):
+    print("No hay delete :,(")
+
+
+#################### JORGE ############################
 def truncate(database, table):
     try:
         base = DataBase.buscar(str(database))
