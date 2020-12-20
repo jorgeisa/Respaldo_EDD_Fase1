@@ -4,6 +4,35 @@ from tkinter import filedialog
 from tkinter import messagebox
 from Funciones import *
 
+print(createDatabase('DB1'), end="-")
+print(createDatabase('DB2'), end="-")
+print(createDatabase('DB3'), end="-")
+print(createDatabase('DB4'), end="-")
+print(createDatabase('DB5'))
+
+print(createTable('DB2', 'Table1_DB2', 2), end="-")
+print(createTable('DB2', 'Table2_DB2', 2), end="-")
+print(createTable('DB2', 'Table3_DB2', 2), end="-")
+print(createTable('DB2', 'Table4_DB2', 2), end="-")
+print(createTable('DB2', 'Table5_DB2', 2), end="-")
+print(createTable('DB2', 'Table6_DB2', 2))
+
+# Creando tablas a DB4
+print("Creacion Tablas DB4:")
+print(createTable('DB4', 'Table1_DB4', 2), end="-")
+print(createTable('DB4', 'Table2_DB4', 2), end="-")
+print(createTable('DB4', 'Table3_DB4', 2), end="-")
+print(createTable('DB4', 'Table4_DB4', 2), end="-")
+print(createTable('DB4', 'Table5_DB4', 2), end="-")
+
+print(insert('DB4', 'Table1_DB4', ["sddd", "Manuel"]), end='-')
+print(insert('DB4', 'Table1_DB4', [2, "Gabriela"]), end='-')
+print(insert('DB4', 'Table1_DB4', [3, "Diego"]), end='-')
+print(insert('DB4', 'Table1_DB4', [4, "Diego2"]))
+print(insert('DB4', 'Table1_DB4', [5, "Diego3"]))
+
+print(insert('DB2', 'Table1_DB2', [4, "*****"]))
+print(insert('DB2', 'Table1_DB2', [5, "------"]))
 
 def centrar_ventana(app, ancho, alto):
     app.config(width=ancho, height=alto)  # linen - light cyan - ghost white WhiteSmoke
@@ -32,9 +61,6 @@ def ventana_imagen(imagen):
         label.image = img
         label.grid(row=0, column=0)
         label.pack(side="bottom", fill="both", expand="yes")
-
-
-
     except:
         print('Imagen no existe')
 
@@ -110,15 +136,18 @@ def ventana_db(ventana):
     combo = ttk.Combobox(app2, font=fuente)
     combo.place(x=150, y=330)
 
-    Label(app2, text="Seleccionar DB",  bg="#F0FFFF", font=("Georgia", 13)).place(x=180, y=300)
-    combo["values"] = DataBase.lista_bases()
-    combo.bind("<<ComboboxSelected>>", selection_changed)
+    if CheckData():
+        DB_archivo = Load("BD")
 
-    # Obtener imagen de la lista de db
-    DataBase.graficar()
-    img = 'AVL_DB.png'
-    boton_estructura = Button(app2, text="Ver estructura", bg="#FFFFFF", compound="top", font=("Georgia", 10), command=lambda: ventana_imagen(img))
-    boton_estructura.place(x=380, y=5)
+        Label(app2, text="Seleccionar DB",  bg="#F0FFFF", font=("Georgia", 13)).place(x=180, y=300)
+        combo["values"] = DB_archivo.lista_bases()
+        combo.bind("<<ComboboxSelected>>", selection_changed)
+
+        # Obtener imagen de la lista de db
+        DB_archivo.graficar()
+        img = 'AVL_DB.png'
+        boton_estructura = Button(app2, text="Ver estructura", bg="#FFFFFF", compound="top", font=("Georgia", 10), command=lambda: ventana_imagen(img))
+        boton_estructura.place(x=380, y=5)
 
 
 def ventana_lista_tablas(ventana, db):
@@ -146,23 +175,24 @@ def ventana_lista_tablas(ventana, db):
 
     Label(app, text="Tablas de DB:\n"+db, bg="#F0FFFF", font=("Georgia", 13)).place(x=190, y=300)
 
-    db = DataBase.buscar(db)
-    lista_tablas = db.avlTable.lista_tablas()
-    print(db.name + ' ', lista_tablas)
+    if CheckData():
+        DataBase = Load("BD")
+        db = DataBase.buscar(db)
+        lista_tablas = db.avlTable.lista_tablas()
+        print(db.name + ' ', lista_tablas)
 
-    if lista_tablas is None:
-        messagebox.showinfo('', 'LA DB "'+db.name+'" NO TIENE TABLAS')
-        ventana_db(app)
+        if lista_tablas is None:
+            messagebox.showinfo('', 'LA DB "'+db.name+'" NO TIENE TABLAS')
+            ventana_db(app)
+        else:
+            combo["values"] = lista_tablas
+            combo.bind("<<ComboboxSelected>>", selection_changed)
 
-    else:
-        combo["values"] = lista_tablas
-        combo.bind("<<ComboboxSelected>>", selection_changed)
-
-        db.avlTable.graficar()
-        img = 'AVL_T.png'
-        boton_estructura = Button(app, text="Ver estructura", bg="#FFFFFF", compound="top", font=("Georgia", 10),
-                                  command=lambda: ventana_imagen(img))
-        boton_estructura.place(x=380, y=5)
+            db.avlTable.graficar()
+            img = 'AVL_T.png'
+            boton_estructura = Button(app, text="Ver estructura", bg="#FFFFFF", compound="top", font=("Georgia", 10),
+                                      command=lambda: ventana_imagen(img))
+            boton_estructura.place(x=380, y=5)
 
 
 def ventana_tupla(ventana, tupla, db):
@@ -181,41 +211,43 @@ def ventana_tupla(ventana, tupla, db):
     Label(app, text="Registro de la tupla:\n" + tupla, bg="#F0FFFF", font=("Georgia", 13)).place(x=180, y=250)
 
     def mensaje():
-        base = DataBase.buscar(str(db.name))
-        table = base.avlTable.buscar(tupla)
-        try:
-            lista = table.bPlus.lista_nodos()
-            if lista is not None:
-                table.bPlus.graphTree()
-                img = 'ArbolB+.png'
-                boton_estructura = Button(app, text="Ver estructura", bg="#FFFFFF", compound="top", font=("Georgia", 10), command=lambda: ventana_imagen(img))
-                boton_estructura.place(x=380, y=5)
+        if CheckData():
+            DataBase = Load("BD")
+            base = DataBase.buscar(str(db.name))
+            table = base.avlTable.buscar(tupla)
+            try:
+                lista = table.bPlus.lista_nodos()
+                if lista is not None:
+                    table.bPlus.graphTree()
+                    img = 'ArbolB+.png'
+                    boton_estructura = Button(app, text="Ver estructura", bg="#FFFFFF", compound="top", font=("Georgia", 10), command=lambda: ventana_imagen(img))
+                    boton_estructura.place(x=380, y=5)
 
-                app2 = Toplevel()
-                color = "#F0FFFF"
-                configuracion_defecto(app2)
-                centrar_ventana(app2, 900, 700)
+                    app2 = Toplevel()
+                    color = "#F0FFFF"
+                    configuracion_defecto(app2)
+                    centrar_ventana(app2, 900, 700)
 
-                tabla = ttk.Treeview(app2, height=32)
-                tabla["columns"] = "#0"
-                tabla.column("#0", width=650, minwidth=400)
-                tabla.heading("#0", text="Registros", anchor="center")
+                    tabla = ttk.Treeview(app2, height=32)
+                    tabla["columns"] = "#0"
+                    tabla.column("#0", width=650, minwidth=400)
+                    tabla.heading("#0", text="Registros", anchor="center")
 
-                tabla.place(x=20, y=20)
+                    tabla.place(x=20, y=20)
 
-                #tabla.place(x=50, y=350)
-                mensaje = ''
-                contador = 0
-                for i in lista:
-                    contador += 1
-                    for x in i:
-                        mensaje += str(x) + "  "
-                    print(mensaje)
-                    tabla.insert('', 'end', text=mensaje)
+                    #tabla.place(x=50, y=350)
                     mensaje = ''
-        except:
-            messagebox.showinfo('', 'LA TABLA NO TIENE REGISTROS')
-            ventana_lista_tablas(app, db.name)
+                    contador = 0
+                    for i in lista:
+                        contador += 1
+                        for x in i:
+                            mensaje += str(x) + "  "
+                        print(mensaje)
+                        tabla.insert('', 'end', text=mensaje)
+                        mensaje = ''
+            except:
+                messagebox.showinfo('', 'LA TABLA NO TIENE REGISTROS')
+                ventana_lista_tablas(app, db.name)
 
     bt = Button(app, text="Ver registros", font='Georgia 10', bg='#98FB98', command=mensaje)
     bt.place(x=200, y=310)
@@ -1158,4 +1190,6 @@ def ventana_loadCSV():
 
 
 ventana_principal()
+
+
 
