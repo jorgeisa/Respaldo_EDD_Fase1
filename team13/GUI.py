@@ -65,7 +65,7 @@ def ventana_principal():
     db.place(x=500, y=200)
 
     img_subir = PhotoImage(file="./images/subir.png")
-    db = Button(text="Cargar", bg="#FFFFFF", image=img_subir, compound="top", font=("Georgia", 16), command=abrir_archivo)
+    db = Button(text="Cargar", bg="#FFFFFF", image=img_subir, compound="top", font=("Georgia", 16), command=ventana_loadCSV)
     db.place(x=600, y=400)
 
     img_func = PhotoImage(file="./images/codificacion.png")
@@ -1128,14 +1128,33 @@ def ventana_extract_row(ventana):
     boton_regresar.place(x=10, y=5)
 
 
-# CARGAR ARCHIVO
-def abrir_archivo():
-    nombre_archivo = filedialog.askopenfilename(title='Seleccione archivo')
-    if nombre_archivo != '':
-        archivo = open(nombre_archivo, 'r', encoding='utf-8')
-        contenido = archivo.read()
-        archivo.close()
-        print(contenido)
+
+def ventana_loadCSV():
+    app = Toplevel()
+    configuracion_defecto(app)
+    centrar_ventana(app, 500, 600)
+    Label(app, text='loadCSV', bg="#F0FFFF", font=("Georgia", 20)).place(x=200, y=140)
+
+    Label(app, text='Nombre DB:', bg="#F0FFFF", font=("Georgia", 10)).place(x=70, y=200)
+    nombre_db = Entry(app, font=("Georgia", 10))
+    nombre_db.place(x=215, y=200, width=245)
+
+    Label(app, text='Nombre tabla:', bg="#F0FFFF", font=("Georgia", 10)).place(x=70, y=230)
+    nombre_tabla = Entry(app, font=("Georgia", 10))
+    nombre_tabla.place(x=215, y=230, width=245)
+
+    def guardar(database, table):
+        nombre_archivo = filedialog.askopenfilename(title='Seleccione archivo')
+        if nombre_archivo != '':
+            archivo = open(nombre_archivo, 'r', encoding='utf-8')
+            contenido = archivo.read()
+            archivo.close()
+            print(contenido)
+
+            loadCSV(contenido, database, table)
+
+    bt = Button(app, text="Confirmar", font='Georgia 10', bg='#98FB98',command=lambda:guardar(nombre_db.get(), nombre_tabla.get()))
+    bt.place(x=215, y=300)
 
 
 ventana_principal()
