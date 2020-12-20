@@ -168,9 +168,11 @@ class BPLUS_TUPLE:
     ####################Ya esta############################
 
     #################### KEVIN ############################
-    def alterAddColumn(self, new_column):
+    def alterAddColumn(self, new_column, tabla):
         self._alterAddColumn(self.__root, new_column)
         self.__size += 1
+        tama = self.__size
+        tabla.set_numberColumns(tama)
         # print('NUEVO TAMAÑO DE LA TABLA: ', self.__size)
 
     #################### KEVIN ############################
