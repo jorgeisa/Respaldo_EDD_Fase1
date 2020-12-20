@@ -4,7 +4,7 @@
 * Tener instalado en el ordenador el entorno de Python 3.8.1
 
 # Opciones De La Solucion
---
+
 
 ## 1. Pagina De Inicio
 ![..](https://github.com/jorgeisa/Respaldo_EDD_Fase1/blob/main/team13/Inicio.png)
