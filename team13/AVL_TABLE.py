@@ -178,18 +178,25 @@ class AVL_TABLE:
             # Nodo Hoja
             if raiz.factor == 1:
                 raiz = self.__caso1(raiz)
+                raiz = self.__balance(raiz)
                 return raiz
             # Nodo con dos hijos
             elif raiz.der != None and raiz.izq != None:
                 valores = self.__caso2(raiz.izq)
                 raiz.izq = valores.nodo
                 raiz.name = valores.bPlus
+                raiz = self.__balance(raiz)
                 return raiz
             # Nodo con un hijo
             elif raiz.der != None or raiz.izq != None:
                 raiz = self.__caso3(raiz)
+                raiz = self.__balance(raiz)
                 return raiz
 
+        raiz = self.__balance(raiz)
+
+
+    def __balance(self,raiz):
         # Determinar el Factor
         raiz.factor = 1 + max(self.__obtenerFactor(raiz.der), self.__obtenerFactor(raiz.izq))
 
@@ -222,11 +229,19 @@ class AVL_TABLE:
                 self.bPlus = 0
 
         if nodo.der == None:
-            valores = NodoyValor()
-            valores.bPlus = nodo.name
-            nodo = None
-            valores.nodo = nodo
-            return valores
+            if nodo.factor == 1:
+                valores = NodoyValor()
+                valores.bPlus = nodo.name
+                nodo = None
+                valores.nodo = nodo
+                return valores
+            elif nodo.izq != None:
+                valores = NodoyValor()
+                valores.bPlus = nodo.name
+                valores.nodo = nodo.izq
+                nodo = None
+                return valores
+
 
         rotorno = self.__caso2(nodo.der)
         nodo.der = rotorno.nodo
