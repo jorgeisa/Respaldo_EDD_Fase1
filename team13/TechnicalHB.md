@@ -8,7 +8,7 @@ en la base de datos, los programas de aplicación y las consultas enviadas al si
 Podrá gestionar la reserva de espacio de almacenamiento y las estructuras de datos
 usadas para representar la información almacenada.
 
-## Alcance Del Proyecto
+## Alcance Del Prototipo
 El sistema será capaz de cumplir con un conjunto de funciones, las cuales facilitaran 
 al usuario el manejo de los datos almacenados. El usuario podrá crear o eliminar una 
 base de datos, tendrá la libertad de renombrarla; podrá crear, renombrar o eliminar 
