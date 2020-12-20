@@ -10,7 +10,7 @@ forma sencilla para interactuar con la solucion y se pueda observar el comportam
 estructuras de datos y como funcionan estas mismas dentro de la solucion. Las estructuras de datos utilizadas fueron arboles en su mayoria, en especifico arboles AVL y arboles B+, esto para mejorar el rendimiento de ejecution de la solucion.
 
 ## Requerimientos Funcionales
-* Tener instalado el entorno de Python en el ordenador en su version 3.8.1
+* Tener instalado el entorno de Python en el ordenador en su version 3.8.1 o superior
 
 ## Proposito Del Prototipo
 El desarrollo de un sistema de almacenamiento prototipo de un gestor de base de datos, 
