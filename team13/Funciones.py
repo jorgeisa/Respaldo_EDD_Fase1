@@ -95,7 +95,6 @@ def dropDatabase(database):
                 else:
                     DataBase.eliminarDB(database)
                     Save(DataBase, "BD")
-                    DataBase.graficar()
                     return 0
         return 1
     except:

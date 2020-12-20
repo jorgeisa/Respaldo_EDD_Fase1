@@ -1,6 +1,8 @@
 from BPLUS_TUPLE import BPLUS_TUPLE
 from Funciones import showDatabases
 from Funciones import *
+from timeit import default_timer
+
 
 
 def Main():
@@ -33,77 +35,6 @@ def test():
     print(createDatabase('DB2'), end="-")
     print(createDatabase('DB3'), end="-")
     print(createDatabase('DB4'), end="-")
-    print(createDatabase('DB5'))
-    print("Impresion de DBs:")
-    print(showDatabases())
-
-    # Graficando DBs
-    # DataBase.graficar()
-    print("\nElimando la DB6:")
-    print(dropDatabase('DB6'))
-    # DataBase.graficar()
-
-    # Creando Tablas para DB2
-    # createTable(database: str, table: str, numberColumns: int)
-    print("\nCreacion de Tablas en DBs:")
-    print("Creacion Tablas DB2:")
-    print(createTable('DB2', 'Table1_DB2', 2), end="-")
-    print(createTable('DB2', 'Table2_DB2', 2), end="-")
-    print(createTable('DB2', 'Table3_DB2', 2), end="-")
-    print(createTable('DB2', 'Table4_DB2', 2), end="-")
-    print(createTable('DB2', 'Table5_DB2', 2), end="-")
-    print(createTable('DB2', 'Table6_DB2', 2))
-
-    # Creando tablas a DB4
-    print("Creacion Tablas DB4:")
-    print(createTable('DB4', 'Table1_DB4', 2), end="-")
-    print(createTable('DB4', 'Table2_DB4', 2), end="-")
-    print(createTable('DB4', 'Table3_DB4', 2), end="-")
-    print(createTable('DB4', 'Table4_DB4', 2), end="-")
-    print(createTable('DB4', 'Table5_DB4', 2), end="-")
-    print(createTable('DB4', 'Table6_DB4', 2))
-
-    # Mostrando las tablas
-    # Mostrando Tablas DB2, DB3, DB4
-    print("\nMostrando Tablas de DBs:")
-    print("Tablas DB2:")
-    print(showTables('DB2'))
-    print("Tablas DB3 (sin tablas):")
-    print(showTables('DB3'))
-    print("Tablas DB30 (no existente):")
-    print(showTables('DB30'))
-    print("Tablas DB4:")
-    print(showTables('DB4'))
-
-    print('\nInsertando tuplas en DB4:')
-    print(insert('DB4', 'Table1_DB4', ["sddd", "Manuel"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [2, "Gabriela"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [3, "Diego"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [4, "Diego2"]))
-    print(insert('DB4', 'Table1_DB4', [5, "Diego3"]))
-
-    print("\nBorrando una columna de Table1_DB4:")
-    print(alterDropColumn('DB4', 'Table1_DB4', 0))
-    print(alterDropColumn('DB4', 'Table1_DB4', 0))
-
-    print('1. Colocando las llaves primarias con alter')
-    print(alterAddPK('DB4', 'Table1_DB4', [1]))
-
-    print('1.2 Eliminando la llave primaria de DB4:')
-    print(alterDropPK('DB4', 'Table1_DB4'))
-
-    print('2. Colocando las llaves primarias con alter')
-    print(alterAddPK('DB4', 'Table1_DB4', [0, 1]))
-    # print("\nGraficando Tablas de DBs")
-    # print("Tablas de DB2")
-    # print(graficarTablas("DB2"))
-
-def test2():
-    print("Creacion de DBs:")
-    print(createDatabase('DB1'), end="-")
-    print(createDatabase('DB2'), end="-")
-    print(createDatabase('DB3'), end="-")
-    print(createDatabase('DB4'), end="-")
     print(createDatabase('DB5'), end="-")
     print(createDatabase('DB6'), end="-")
     print(createDatabase('DB7'), end="-")
@@ -115,91 +46,93 @@ def test2():
     print(createDatabase('DB13'), end="-")
     print(createDatabase('DB14'), end="-")
     print(createDatabase('DB15'), end="-")
-    print(createDatabase('DB16'), end="-")
-    print(createDatabase('DB17'), end="-")
-    print(createDatabase('DB18'), end="-")
-    print(createDatabase('DB19'), end="-")
-    print(createDatabase('DB20'), end="-")
-    print(createDatabase('DB21'), end="-")
-    print(createDatabase('DB22'), end="-")
-    print(createDatabase('DB23'), end="-")
-    print(createDatabase('DB24'), end="-")
-    print(createDatabase('DB25'))
-    print(createDatabase('DB26'), end="-")
-    print(createDatabase('DB27'), end="-")
-    print(createDatabase('DB28'), end="-")
-    print(createDatabase('DB29'), end="-")
-    print(createDatabase('DB30'), end="-")
-    print(createDatabase('DB31'), end="-")
-    print(createDatabase('DB32'), end="-")
-    print(createDatabase('DB33'), end="-")
-    print(createDatabase('DB34'), end="-")
-    print(createDatabase('DB35'), end="-")
-    print(createDatabase('DB36'), end="-")
-    print(createDatabase('DB37'), end="-")
-    print(createDatabase('DB38'), end="-")
-    print(createDatabase('DB39'), end="-")
-    print(createDatabase('DB40'), end="-")
-    print(createDatabase('DB41'), end="-")
-    print(createDatabase('DB42'), end="-")
-    print(createDatabase('DB43'), end="-")
-    print(createDatabase('DB44'), end="-")
-    print(createDatabase('DB45'), end="-")
-    print(createDatabase('DB46'), end="-")
-    print(createDatabase('DB47'), end="-")
-    print(createDatabase('DB48'), end="-")
-    print(createDatabase('DB49'), end="-")
-    print(createDatabase('DB50'))
-    print(createDatabase('DB51'), end="-")
-    print(createDatabase('DB52'), end="-")
-    print(createDatabase('DB53'), end="-")
-    print(createDatabase('DB54'), end="-")
-    print(createDatabase('DB55'), end="-")
-    print(createDatabase('DB56'), end="-")
-    print(createDatabase('DB57'), end="-")
-    print(createDatabase('DB58'), end="-")
-    print(createDatabase('DB59'), end="-")
-    print(createDatabase('DB60'), end="-")
-    print(createDatabase('DB61'), end="-")
-    print(createDatabase('DB62'), end="-")
-    print(createDatabase('DB63'), end="-")
-    print(createDatabase('DB64'), end="-")
-    print(createDatabase('DB65'), end="-")
-    print(createDatabase('DB66'), end="-")
-    print(createDatabase('DB67'), end="-")
-    print(createDatabase('DB68'), end="-")
-    print(createDatabase('DB69'), end="-")
-    print(createDatabase('DB70'), end="-")
-    print(createDatabase('DB71'), end="-")
-    print(createDatabase('DB72'), end="-")
-    print(createDatabase('DB73'), end="-")
-    print(createDatabase('DB74'), end="-")
-    print(createDatabase('DB75'))
-    print(createDatabase('DB76'), end="-")
-    print(createDatabase('DB77'), end="-")
-    print(createDatabase('DB78'), end="-")
-    print(createDatabase('DB79'), end="-")
-    print(createDatabase('DB80'), end="-")
-    print(createDatabase('DB81'), end="-")
-    print(createDatabase('DB82'), end="-")
-    print(createDatabase('DB83'), end="-")
-    print(createDatabase('DB84'), end="-")
-    print(createDatabase('DB85'), end="-")
-    print(createDatabase('DB86'), end="-")
-    print(createDatabase('DB87'), end="-")
-    print(createDatabase('DB88'), end="-")
-    print(createDatabase('DB89'), end="-")
-    print(createDatabase('DB90'), end="-")
-    print(createDatabase('DB91'), end="-")
-    print(createDatabase('DB92'), end="-")
-    print(createDatabase('DB93'), end="-")
-    print(createDatabase('DB94'), end="-")
-    print(createDatabase('DB95'), end="-")
-    print(createDatabase('DB96'), end="-")
-    print(createDatabase('DB97'), end="-")
-    print(createDatabase('DB98'), end="-")
-    print(createDatabase('DB99'), end="-")
-    print(createDatabase('DB100'))
+
+
+    # print(createDatabase('DB16'), end="-")
+    # print(createDatabase('DB17'), end="-")
+    # print(createDatabase('DB18'), end="-")
+    # print(createDatabase('DB19'), end="-")
+    # print(createDatabase('DB20'), end="-")
+    # print(createDatabase('DB21'), end="-")
+    # print(createDatabase('DB22'), end="-")
+    # print(createDatabase('DB23'), end="-")
+    # print(createDatabase('DB24'), end="-")
+    # print(createDatabase('DB25'))
+    # print(createDatabase('DB26'), end="-")
+    # print(createDatabase('DB27'), end="-")
+    # print(createDatabase('DB28'), end="-")
+    # print(createDatabase('DB29'), end="-")
+    # print(createDatabase('DB30'), end="-")
+    # print(createDatabase('DB31'), end="-")
+    # print(createDatabase('DB32'), end="-")
+    # print(createDatabase('DB33'), end="-")
+    # print(createDatabase('DB34'), end="-")
+    # print(createDatabase('DB35'), end="-")
+    # print(createDatabase('DB36'), end="-")
+    # print(createDatabase('DB37'), end="-")
+    # print(createDatabase('DB38'), end="-")
+    # print(createDatabase('DB39'), end="-")
+    # print(createDatabase('DB40'), end="-")
+    # print(createDatabase('DB41'), end="-")
+    # print(createDatabase('DB42'), end="-")
+    # print(createDatabase('DB43'), end="-")
+    # print(createDatabase('DB44'), end="-")
+    # print(createDatabase('DB45'), end="-")
+    # print(createDatabase('DB46'), end="-")
+    # print(createDatabase('DB47'), end="-")
+    # print(createDatabase('DB48'), end="-")
+    # print(createDatabase('DB49'), end="-")
+    # print(createDatabase('DB50'))
+    # print(createDatabase('DB51'), end="-")
+    # print(createDatabase('DB52'), end="-")
+    # print(createDatabase('DB53'), end="-")
+    # print(createDatabase('DB54'), end="-")
+    # print(createDatabase('DB55'), end="-")
+    # print(createDatabase('DB56'), end="-")
+    # print(createDatabase('DB57'), end="-")
+    # print(createDatabase('DB58'), end="-")
+    # print(createDatabase('DB59'), end="-")
+    # print(createDatabase('DB60'), end="-")
+    # print(createDatabase('DB61'), end="-")
+    # print(createDatabase('DB62'), end="-")
+    # print(createDatabase('DB63'), end="-")
+    # print(createDatabase('DB64'), end="-")
+    # print(createDatabase('DB65'), end="-")
+    # print(createDatabase('DB66'), end="-")
+    # print(createDatabase('DB67'), end="-")
+    # print(createDatabase('DB68'), end="-")
+    # print(createDatabase('DB69'), end="-")
+    # print(createDatabase('DB70'), end="-")
+    # print(createDatabase('DB71'), end="-")
+    # print(createDatabase('DB72'), end="-")
+    # print(createDatabase('DB73'), end="-")
+    # print(createDatabase('DB74'), end="-")
+    # print(createDatabase('DB75'))
+    # print(createDatabase('DB76'), end="-")
+    # print(createDatabase('DB77'), end="-")
+    # print(createDatabase('DB78'), end="-")
+    # print(createDatabase('DB79'), end="-")
+    # print(createDatabase('DB80'), end="-")
+    # print(createDatabase('DB81'), end="-")
+    # print(createDatabase('DB82'), end="-")
+    # print(createDatabase('DB83'), end="-")
+    # print(createDatabase('DB84'), end="-")
+    # print(createDatabase('DB85'), end="-")
+    # print(createDatabase('DB86'), end="-")
+    # print(createDatabase('DB87'), end="-")
+    # print(createDatabase('DB88'), end="-")
+    # print(createDatabase('DB89'), end="-")
+    # print(createDatabase('DB90'), end="-")
+    # print(createDatabase('DB91'), end="-")
+    # print(createDatabase('DB92'), end="-")
+    # print(createDatabase('DB93'), end="-")
+    # print(createDatabase('DB94'), end="-")
+    # print(createDatabase('DB95'), end="-")
+    # print(createDatabase('DB96'), end="-")
+    # print(createDatabase('DB97'), end="-")
+    # print(createDatabase('DB98'), end="-")
+    # print(createDatabase('DB99'), end="-")
+    # print(createDatabase('DB100'))
 
     # print("Impresion de DBs:")
     # print(showDatabases())
@@ -263,7 +196,7 @@ def test2():
     print(createTable('DB2', 'Table47_DB2', 2), end="-")
     print(createTable('DB2', 'Table48_DB2', 2), end="-")
     print(createTable('DB2', 'Table49_DB2', 2), end="-")
-    print(createTable('DB2', 'Table50_DB2', 2), end="-")
+    print(createTable('DB2', 'Table50_DB2', 2))
 
     # Creando tablas a DB4
     print("Creacion Tablas DB4:")
@@ -316,7 +249,7 @@ def test2():
     print(createTable('DB4', 'Table47_DB4', 4), end="-")
     print(createTable('DB4', 'Table48_DB4', 4), end="-")
     print(createTable('DB4', 'Table49_DB4', 4), end="-")
-    print(createTable('DB4', 'Table50_DB4', 4), end="-")
+    print(createTable('DB4', 'Table50_DB4', 4))
 
     print("Creacion Tablas DB6:")
     print(createTable('DB6', 'Table1_DB6', 6), end="-")
@@ -368,7 +301,7 @@ def test2():
     print(createTable('DB6', 'Table47_DB6', 6), end="-")
     print(createTable('DB6', 'Table48_DB6', 6), end="-")
     print(createTable('DB6', 'Table49_DB6', 6), end="-")
-    print(createTable('DB6', 'Table50_DB6', 6), end="-")
+    print(createTable('DB6', 'Table50_DB6', 6))
 
     print("Creacion Tablas DB8:")
     print(createTable('DB8', 'Table1_DB8', 8), end="-")
@@ -420,7 +353,7 @@ def test2():
     print(createTable('DB8', 'Table47_DB8', 8), end="-")
     print(createTable('DB8', 'Table48_DB8', 8), end="-")
     print(createTable('DB8', 'Table49_DB8', 8), end="-")
-    print(createTable('DB8', 'Table50_DB8', 8), end="-")
+    print(createTable('DB8', 'Table50_DB8', 8))
 
     print("Creacion Tablas DB10:")
     print(createTable('DB10', 'Table1_DB10', 10), end="-")
@@ -472,7 +405,7 @@ def test2():
     print(createTable('DB10', 'Table47_DB10', 10), end="-")
     print(createTable('DB10', 'Table48_DB10', 10), end="-")
     print(createTable('DB10', 'Table49_DB10', 10), end="-")
-    print(createTable('DB10', 'Table50_DB10', 10), end="-")
+    print(createTable('DB10', 'Table50_DB10', 10))
 
     # Mostrando las tablas
     # Mostrando Tablas DB2, DB3, DB4
@@ -497,64 +430,129 @@ def test2():
     print(insert('DB4', 'Table1_DB4', [8, "Aejandro", 7.5, "Blanco"]), end='-')
     print(insert('DB4', 'Table1_DB4', [9, "Nathan", 8.5, "Negro"]), end='-')
     print(insert('DB4', 'Table1_DB4', [10, "Jessica", 9.5, "Rojo"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [11, "Ericha", 0.5, "Azul"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [12, "Merry", 1.5, "Amarillo"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [13, "Sib", 2.5, "Verde"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [14, "Violetta", 3.5, "Rosado"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [15, "Meghan", 4.5, "Anaranjado"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [16, "Heinrick", 5.5, "Gris"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [17, "Tiler", 6.5, "Celeste"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [18, "Dennie", 7.5, "Blanco"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [19, "Dorie", 8.5, "Negro"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [20, "Niles", 9.5, "Rojo"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [21, "Olag", 0.5, "Azul"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [22, "Noland", 1.5, "Amarillo"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [23, "Paulita", 2.5, "Verde"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [24, "Forrest", 3.5, "Rosado"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [25, "Ulrick", 4.5, "Anaranjado"]))
-    print(insert('DB4', 'Table1_DB4', [26, "Angil", 5.5, "Gris"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [27, "Fiona", 6.5, "Celeste"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [28, "Rodrick", 7.5, "Blanco"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [29, "Carolyne", 8.5, "Negro"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [30, "Cortney", 9.5, "Rojo"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [31, "Byron", 0.5, "Azul"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [32, "Lazarus", 1.5, "Amarillo"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [33, "Cyndy", 2.5, "Verde"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [34, "Becca", 3.5, "Rosado"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [35, "Brody", 4.5, "Anaranjado"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [36, "Darda", 5.5, "Gris"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [37, "Patrice", 6.5, "Celeste"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [38, "Bay", 7.5, "Blanco"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [39, "Giffy", 8.5, "Negro"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [40, "Hallsy", 9.5, "Rojo"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [41, "Elinor", 0.5, "Azul"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [42, "Maitilde", 1.5, "Amarillo"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [43, "Van", 2.5, "Verde"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [44, "Marcel", 3.5, "Rosado"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [45, "Giselle", 4.5, "Anaranjado"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [46, "Olympe", 5.5, "Gris"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [47, "Roxi", 6.5, "Celeste"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [48, "Debbi", 7.5, "Blanco"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [49, "Baron", 8.5, "Negro"]), end='-')
-    print(insert('DB4', 'Table1_DB4', [50, "Debera", 9.5, "Rojo"]))
+    print(insert('DB4', 'Table1_DB4', [11, "Ericha", 10.5, "Azul"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [12, "Merry", 11.5, "Amarillo"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [13, "Sib", 12.5, "Verde"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [14, "Violetta", 13.5, "Rosado"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [15, "Meghan", 14.5, "Anaranjado"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [16, "Heinrick", 15.5, "Gris"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [17, "Tiler", 16.5, "Celeste"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [18, "Dennie", 17.5, "Blanco"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [19, "Dorie", 18.5, "Negro"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [20, "Niles", 19.5, "Rojo"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [21, "Olag", 20.5, "Azul"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [22, "Noland", 21.5, "Amarillo"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [23, "Paulita", 22.5, "Verde"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [24, "Forrest", 23.5, "Rosado"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [25, "Ulrick", 24.5, "Anaranjado"]))
+    print(insert('DB4', 'Table1_DB4', [26, "Angil", 25.5, "Gris"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [27, "Fiona", 26.5, "Celeste"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [28, "Rodrick", 27.5, "Blanco"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [29, "Carolyne", 28.5, "Negro"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [30, "Cortney", 29.5, "Rojo"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [31, "Byron", 30.5, "Azul"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [32, "Lazarus", 31.5, "Amarillo"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [33, "Cyndy", 32.5, "Verde"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [34, "Becca", 33.5, "Rosado"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [35, "Brody", 34.5, "Anaranjado"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [36, "Darda", 35.5, "Gris"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [37, "Patrice", 36.5, "Celeste"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [38, "Bay", 37.5, "Blanco"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [39, "Giffy", 38.5, "Negro"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [40, "Hallsy", 39.5, "Rojo"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [41, "Elinor", 40.5, "Azul"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [42, "Maitilde", 41.5, "Amarillo"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [43, "Van", 42.5, "Verde"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [44, "Marcel", 43.5, "Rosado"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [45, "Giselle", 44.5, "Anaranjado"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [46, "Olympe", 45.5, "Gris"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [47, "Roxi", 46.5, "Celeste"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [48, "Debbi", 47.5, "Blanco"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [49, "Baron", 48.5, "Negro"]), end='-')
+    print(insert('DB4', 'Table1_DB4', [50, "Debera", 49.5, "Rojo"]))
 
-    print("\nBorrando una columna de Table1_DB4:")
-    print(alterDropColumn('DB4', 'Table1_DB4', 0))
-    print(alterDropColumn('DB4', 'Table1_DB4', 0))
 
-    print('1. Colocando las llaves primarias con alter')
-    print(alterAddPK('DB4', 'Table1_DB4', [1]))
+    print("Impresion 1")
+    testShow('DB4', 'Table1_DB4')
 
-    print('1.2 Eliminando la llave primaria de DB4:')
-    print(alterDropPK('DB4', 'Table1_DB4'))
+    print("\nProbando alterDatabase: DB4")
+    print(alterDatabase("DB4", "DB4P"), end='-')  # Caso bueno
+    print(alterDatabase("DB4_Plus2", 7), end='-')  # error
+    print(alterDatabase("DB4", "DB4_Plus"), end='-')  # no existe old
+    print(alterDatabase("DB4_Plus", "DB5"))  # existe new
 
-    print('2. Colocando las llaves primarias con alter')
-    print(alterAddPK('DB4', 'Table1_DB4', [0, 1]))
-    # print("\nGraficando Tablas de DBs")
-    # print("Tablas de DB2")
-    # print(graficarTablas("DB2"))
 
+    print("\nImpresion 2:")
+    testShow("DB4P", 'Table1_DB4')
+
+    print('\nProbando dropDatabase:')
+    # print(dropDatabase('DB5'), end='-')
+    # print(dropDatabase('DB4P'), end='-')
+    # print(dropDatabase('DB11'), end='-')  #Exitosa Error punteros
+    print(dropDatabase('@'), end='-')  # error
+    print(dropDatabase('DB4_Plus8'))  # No existente
+
+    print("\nProbando extractTable:")
+
+    print(extractTable("DB4P", "Table1_DB4"))  # Lista de tuplas
+    print(extractTable("DB4P", "Table2_DB4"), end="-")  # Lista vacia, sin tupla
+    print(extractTable("DB4Pll", "Table2_DB4"), end="-")  # DB no existe
+    print(extractTable("DB4P", "Table2_DB4ll"), end="-")  # Tabla no existe
+    print(extractTable("DB4P", 1))  # Error
+
+    print("\nImpresion 3:")
+    testShow("DB4P", 'Table1_DB4')
+
+    print("\nProbado el extractRangeTable:")
+    print(extractRangeTable("DB4P", "Table1_DB4", 2, 22.5, 39.5))  # Existe valido
+    print(extractRangeTable("DB4P", "Table2_DB4", 2, 22.5, 39.5), end="-")  # No existen tuplas
+    print(extractRangeTable("DB4P", 1, 2, 22.5, 39.5))  # no existe base, tabla o error
+
+    print("\nProbado el alterAddPK:")
+    print(alterAddPK("DB4P", "Table1_DB4", [0, 5]), end='-')  # Columna fuera de limite
+    print(alterAddPK("DB4P", "Table1_DB4", [0, 1, 2, 3, 4, 5]), end='-')  # Fuera de rango
+    print(alterAddPK("DB4P", "Table1_DB4", [0, "Colu"]), end="-")  # Error
+    print(alterAddPK("DB4Pl", "Table1_DB4", [0, 2]), end="-")  # DB no existente
+    print(alterAddPK("DB4P", "Table1_DB4l", [0, 2]), end="-")  # Tabla no existente
+    print(alterAddPK("DB4P", "Table1_DB4", [3]), end="-")  # Hay repetidos, error
+    print(alterAddPK("DB4P", "Table1_DB4", [0, 2, 3]), end="-")  # Hay repetidos, error
+    print(alterAddPK("DB4P", "Table1_DB4", [0, 2]), end="-")  # Exitoso
+    print(alterAddPK("DB4P", "Table1_DB4", [1]))  # ya existe llave primaria
+
+    print("\nProbando el AlterDrop:")
+    print(alterDropPK("DB4P", 7), end="-")  # Error
+    print(alterDropPK("DB4Pll", "Table1_DB4"), end="-")  # db no existe
+    print(alterDropPK("DB4P", "Table1_DB4ll"), end="-")  # tabla no existe
+    print(alterDropPK("DB4P", "Table2_DB4"), end="-")  # pk no existe
+    print(alterDropPK("DB4P", "Table1_DB4"))  # Exito
+
+    print("\nProbando el alterTable:")
+    print(alterTable("DB4P", [0], "nuevaTabla"), end="-")  # error
+    print(alterTable("DB4Pll", "tablaAntigua", "nuevaTabla"), end="-")  # DB no existe
+    print(alterTable("DB4P", "Table1_DB4ll", "TableNew_DB4"), end="-")  # Tabla no existe
+    print(alterTable("DB4P", "Table1_DB4", "Table2_DB4"), end="-")  # New existe
+    print(alterTable("DB4P", "Table1_DB4", "TableNew_DB4"))  # New existe
+
+    print("\nProbando el alterAddColumn:")
+    print(alterAddColumn("DB4P", "TableNew_DB4", "NuevaColumna"), end="-")
+    print(alterAddColumn("DB4P", "TableNew_DB4", []), end="-")  # error
+    print(alterAddColumn("DB4Plll", "TableNew_DB4", "NuevaColumna"), end="-")  # db no existe
+    print(alterAddColumn("DB4P", "TableNew_DB4lll", "NuevaColumna"))  # tabla no existe
+
+    print("\nImpresion 4:")
+    testShow("DB4P", 'TableNew_DB4')
+
+def testShow(db, tabla):
+    print("\nImprimiento DB")
+    print(showDatabases())
+    print("\nImprimiento Tablas", db)
+    print(showTables(db))
+    print("\nImprimiento Tuplas", db)
+    print(extractTable(db, tabla))
 
 
 # Main()
+inicio = default_timer()
 test()
+fin = default_timer()
+print(fin - inicio)

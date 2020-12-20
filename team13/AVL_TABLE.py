@@ -47,6 +47,9 @@ class Nodo:
 
     #################### ISAAC ############################
     def alterAddPk(self, columns):
+        for i in columns:
+            if self.verifyOutOfRange(int(i)):
+                return 5
         bandera = True
         dataList = self.bPlus.verify_Nodes()
         if len(dataList) != 0:
@@ -78,13 +81,6 @@ class Nodo:
         self.bPlus.set_PK([])
         self.bPlus.set_hide(True)
         self.bPlus.set_contador(1)
-
-        # if self.bPlus.get_root() is not None:
-        #     dataList = self.bPlus.verify_Nodes()
-        #     self.bPlus.set_root(None) # "Eliminando" arbol
-        #     for i in dataList:
-        #         self.bPlus.insert(i.register)
-            # self.bPlus.graphTree()
         return 0
 
     ####################Ya esta############################
