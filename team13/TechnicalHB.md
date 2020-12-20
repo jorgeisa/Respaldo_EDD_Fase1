@@ -5,10 +5,9 @@
 Se plantea una solucion inicial para un sistema de almacenamiento de informacion 
 de un DBMS, que cuenta con las funciones principales para la manipulacion de bases de datos.
 El prototipo se desarrollo en lenguaje de Python en su version 3.8.1. Se utilizaron las librerias
-"os" para funcionalidades dependientes de Sistema Operativo, "re" para la gestion de expresiones regulares, "pickle" para la representacion de objetos como cadenas de bytes y su almacenamiento en 
-archivos, "shutil" para el manejo de alto nivel de archivos, "tkinter" para la implementacion de la interfaz grafica, "graphviz" para el dibujado de las estructuras de datos utilizadas, todas pertenecientes al modulo de Python. Se desarrollo una interfaz grafica que brinde al usuario una 
+"os" para funcionalidades dependientes de Sistema Operativo, "re" para la gestion de expresiones regulares, "pickle" para la representacion de objetos como cadenas de bytes y su almacenamiento en archivos, "shutil" para el manejo de alto nivel de archivos, "tkinter" para la implementacion de la interfaz grafica, "graphviz" para el dibujado de las estructuras de datos utilizadas, todas pertenecientes al modulo de Python. Se desarrollo una interfaz grafica que brinde al usuario una 
 forma sencilla para interactuar con la solucion y se pueda observar el comportamiento de las 
-estructuras de datos y como funcionan estas mismas dentro de la solucion.
+estructuras de datos y como funcionan estas mismas dentro de la solucion. Las estructuras de datos utilizadas fueron arboles en su mayoria, en especifico arboles AVL y arboles B+, esto para mejorar el rendimiento de ejecution de la solucion.
 
 ## Requerimientos Funcionales
 * Tener instalado el entorno de Python en el ordenador en su version 3.8.1
