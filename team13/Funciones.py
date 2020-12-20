@@ -256,9 +256,9 @@ def alterAddColumn(database, table, default):
                 if tabla is None:
                     return 3
                 else:
-                    tabla.bPlus.alterAddColumn(default, tabla)
+                    valor = tabla.bPlus.alterAddColumn(default, tabla)
                     Save(DataBase, "BD")
-                    return 0
+                    return valor
         return 1
     except:
         return 1
