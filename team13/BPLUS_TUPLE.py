@@ -52,7 +52,7 @@ class BPLUS_TUPLE:
                     pk = '-'.join(pk)
                 else:
                     self.hide = True
-                    pk = self.contador
+                    pk = str(self.contador)
                     self.contador += 1
                 self.__root = self.__root.add_key(NodeTBPlus(pk, register))
                 return 0
@@ -65,22 +65,13 @@ class BPLUS_TUPLE:
                         pk.append(str(register[i]))
                     pk = '-'.join(pk)
                 elif self.hide:
-                    pk = self.contador
+                    pk = str(self.contador)
                     self.contador += 1
                 if self.Search(pk):
                     return 4
                 self.__root = self.__root.add_key(NodeTBPlus(pk,register))
                 return 0
             return 5
-
-    #################### JORGE ############################
-    def loadCSV(self, file: str) -> list:
-        results = []
-        registers = file.split('\n')
-        for i in registers:
-            register = i.split(',')
-            results.append(self.insert(register))
-        return results
 
     #################### JORGE ############################
     def extractRow(self, columns: list) -> list:
@@ -100,7 +91,7 @@ class BPLUS_TUPLE:
             for column in register:
                 if int(column) in self.__PK:
                     return 1
-            if len(register) > len(self.__PK):
+            if len(register) > self.__size:
                 return 1
             pk = []
             for i in columns:
