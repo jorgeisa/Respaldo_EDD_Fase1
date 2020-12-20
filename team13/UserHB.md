@@ -50,7 +50,8 @@ La ventana de "Registros" tiene un boton que muestra todos los registros que se 
 
 ### 5. Funciones
 La ventana de "Funciones" provee una herramienta al usuario para que pueda ser capaz de realizar operaciones con el sistema en un entorno grafico.
-
+En esta ventana, el usuario puede elegir la función a ejecutar de las solicitadas en el enunciado, están clasificadas como funciones de bases de datos, tablas y tuplas. 
+Al seleccionar una opción en la lista desplegable, la aplicación abrirá automáticamente una ventana con los datos que se necesitan para que la función sea ejecutada correctamente
 
 ![..](https://github.com/jorgeisa/Respaldo_EDD_Fase1/blob/main/team13/Funciones.png)
 
