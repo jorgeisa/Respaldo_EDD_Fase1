@@ -318,8 +318,8 @@ class AVL_TABLE:
         nodo = self.buscar(valor_actual)
 
         if nodo is not None:
-            self.eliminar(nodo.name)
             self.insertar(nodo.bPlus, nuevo_valor, nodo.numberColumns)
+            self.eliminar(nodo.name)
             return 'exito'
         else:
             return 'error'
