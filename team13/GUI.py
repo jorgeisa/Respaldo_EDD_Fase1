@@ -675,7 +675,9 @@ def ventana_alter_table(ventana):
         elif valor_retorno == '2':
             messagebox.showinfo('', 'DB NO EXISTENTE')
         elif valor_retorno == '3':
-            messagebox.showinfo('', 'TABLA EXISTENTE')
+            messagebox.showinfo('', 'tableOld NO EXISTENTE')
+        elif valor_retorno == '4':
+            messagebox.showinfo('', 'tableNew EXISTENTE')
         ventana_funciones(app)
 
     bt = Button(app, text="Confirmar", font='Georgia 10', bg='#98FB98', command=lambda:guardar(nombre_db.get(), nombre_actual.get(), nombre_nuevo.get()))
