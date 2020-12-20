@@ -178,7 +178,6 @@ class AVL_TABLE:
             # Nodo Hoja
             if raiz.factor == 1:
                 raiz = self.__caso1(raiz)
-                raiz = self.__balance(raiz)
                 return raiz
             # Nodo con dos hijos
             elif raiz.der != None and raiz.izq != None:
@@ -190,10 +189,10 @@ class AVL_TABLE:
             # Nodo con un hijo
             elif raiz.der != None or raiz.izq != None:
                 raiz = self.__caso3(raiz)
-                raiz = self.__balance(raiz)
                 return raiz
 
         raiz = self.__balance(raiz)
+        return raiz
 
 
     def __balance(self,raiz):
