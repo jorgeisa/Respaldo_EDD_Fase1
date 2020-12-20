@@ -1,7 +1,7 @@
 # Manual Tecnico
 
 ## Definicion Del Prototipo
-''''Se plantea una solucion inicial para un sistema de almacenamiento de informacion 
+⋅⋅⋅⋅Se plantea una solucion inicial para un sistema de almacenamiento de informacion 
 de un DBMS, que cuenta con las funciones principales para la manipulacion de bases de datos.
 El prototipo se desarrollo en lenguaje de Python en su version 3.8.1. Se utilizaron las librerias
 "os" para funcionalidades dependientes de Sistema Operativo, "re" para la gestion de expresiones regulares, "pickle" para la representacion de objetos como cadenas de bytes y su almacenamiento en 
