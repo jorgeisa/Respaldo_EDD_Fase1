@@ -28,9 +28,8 @@ de procesamiento para la informacion. Para el almacenamiento de la informacion
 en el disco se utilizo un archivo de extension .bin para no exponer la informacion
 que se encuentra en la carpeta Data en el directorio del prototipo
 
-## Restricciones
-Para que el prototipo pueda funcionar de forma correcta, se necesita tener instalado 
-en el ordenador el entorno de Python. 
+## Requisitos Del Sistema
+* Tener instalado el entorno de python
 
 ## Requisitos Funcionales
 * Crear Bases De Datos
