@@ -2,7 +2,7 @@
 ---
 
 ## Definicion Del Prototipo
-    Se plantea una solucion inicial para un sistema de almacenamiento de informacion 
+   Se plantea una solucion inicial para un sistema de almacenamiento de informacion 
 de un DBMS, que cuenta con las funciones principales para la manipulacion de bases de datos.
 El prototipo se desarrollo en lenguaje de Python en su version 3.8.1. Se utilizaron las librerias
 "os" para funcionalidades dependientes de Sistema Operativo, "re" para la gestion de expresiones regulares, "pickle" para la representacion de objetos como cadenas de bytes y su almacenamiento en 
@@ -14,7 +14,7 @@ estructuras de datos y como funcionan estas mismas dentro de la solucion.
 * Tener instalado el entorno de Python en el ordenador en su version 3.8.1
 
 ## Proposito Del Prototipo
-    El desarrollo de un sistema de almacenamiento prototipo de un gestor de base de datos, 
+   El desarrollo de un sistema de almacenamiento prototipo de un gestor de base de datos, 
 cuyo sistema tendrá la tarea de interactuar con los datos almacenados, 
 para luego proporcionar la interfaz entre los datos de bajo nivel almacenados 
 en la base de datos, los programas de aplicación y las consultas enviadas al sistema. 
@@ -31,7 +31,7 @@ corresponden a cada registro de la tabla, una lista con los elementos que corres
 a un rango de registros de la tabla.
 
 ## Funcionalidad Del Prototipo
-    El prototipo se encarga de la administracion del almacenamiento de la 
+   El prototipo se encarga de la administracion del almacenamiento de la 
 informacion correspondiente al DBMS. El prototipo provee las funciones 
 principales de un DBMS. La informacion se encuentra almacenada en arboles,
 especificamente en arboles AVL para las bases de datos y para las tablas 
