@@ -4,6 +4,8 @@
 * Tener instalado en el ordenador el entorno de Python 3.8.1
 
 # Opciones De La Solucion
+--
+
 ## 1. Pagina De Inicio
 ![..](https://github.com/jorgeisa/Respaldo_EDD_Fase1/blob/main/team13/Inicio.png)
 La pagina de inicio tiene como muestra tres botones. El boton "Funciones" lleva a las funciones con el sistema, el boton "Carga" tiene la implementacion para cargar registros y el boton "Bases De Datos" muestra las estructuras y la informacion almacenada en el sistema.
