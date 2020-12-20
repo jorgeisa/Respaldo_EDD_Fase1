@@ -271,6 +271,11 @@ class BPLUS_TUPLE:
             if tmp.get_next() is not None:
                 self._alterDropColumn(tmp.get_next(), column)
 
+    def lista_nodos(self):
+        lista = []
+        lista_nodos = self.__root.lista__nodos(self.__root, lista)
+        return lista_nodos
+    
 class PageTBPlus:
 
     #################### JORGE ############################
@@ -626,6 +631,18 @@ class PageTBPlus:
 
         return lista
 
+    def lista__nodos(self, temp, lista):
+        if len(temp.get_chlds()) != 0:
+            self.lista__nodos(temp.get_chlds()[0], lista)
+        else:
+            for i in temp.get_keys():
+                lista.append(i.register)
+
+            if temp.get_next() is not None:
+                self.lista__nodos(temp.get_next(), lista)
+
+        return lista
+    
     # ################### JORGE ############################
 class NodeTBPlus:
     def __init__(self, PK, register):
