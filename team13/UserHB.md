@@ -12,7 +12,7 @@ La pagina de inicio tiene como muestra tres botones. El boton "Funciones" lleva 
 
 
 
-![..](https://github.com/jorgeisa/Respaldo_EDD_Fase1/blob/main/team13/Inicio.png =100*100)
+![..](https://github.com/jorgeisa/Respaldo_EDD_Fase1/blob/main/team13/Inicio.png)
 
 
 
