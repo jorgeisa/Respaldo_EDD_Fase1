@@ -542,6 +542,25 @@ def test():
     print("\nImpresion 4:")
     testShow("DB4P", 'TableNew_DB4')
 
+    print("\nProbando alterDropColumn:")
+    print(alterDropColumn("DB4P", "TableNew_DB4", [0]), end="-")  # Error
+    print(alterDropColumn("DB4Pll", "TableNew_DB4", 0), end="-")  # DB no existe
+    print(alterDropColumn("DB4P", "TableNew_DB4ll", 0), end="-")  # Tabla no existe
+    print(alterDropColumn("DB4P", "TableNew_DB4", 5), end="-")  # Fuera de limites
+    print(alterDropColumn("DB4P", "TableNew_DB4", 4), end="-")  # Correcto
+    print(alterDropColumn("DB4P", "TableNew_DB4", 3), end="-")  # Correcto
+    print(alterDropColumn("DB4P", "TableNew_DB4", 2), end="-")  # Correcto
+    # print(alterDropColumn("DB4P", "TableNew_DB4", 1), end="-")  # Correcto
+    print(alterAddPK("DB4P", "TableNew_DB4", [1]))  # **Prueba de llave primaria. comentar linea superior**
+    print(alterDropColumn("DB4P", "TableNew_DB4", 1))  # Incorrecto, no se puede vaciar la tabala
+
+    print("\nImpresion 5:")
+    testShow("DB4P", 'TableNew_DB4')
+
+    print("\nProbando dropTable:")
+    print(dropTable("DB4P", "TableNew_DB4"))
+
+
 def testShow(db, tabla):
     print("\nImprimiento DB")
     print(showDatabases())

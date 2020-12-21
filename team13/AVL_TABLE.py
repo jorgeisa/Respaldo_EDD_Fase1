@@ -16,7 +16,7 @@ class Nodo:
 
     def set_numberColumns(self, numberColumns):
         self.numberColumns = numberColumns
-        
+
     #################### ISAAC ############################
     def verifyListPk(self):
         if len(self.listPk) == 0:
