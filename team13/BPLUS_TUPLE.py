@@ -238,7 +238,7 @@ class BPLUS_TUPLE:
             self.__extractRegRange(nodo.get_chlds()[0],registros,columnNumber,lower,upper)
         else:
             for i in nodo.get_keys():
-                if i.register[columnNumber] >= lower and i.register[columnNumber] <= upper:
+                if str(i.register[columnNumber]) >= str(lower) and str(i.register[columnNumber]) <= str(upper):
                     registros.append(i.register)
             if nodo.get_next() is not None:
                 self.__extractRegRange(nodo.get_next(),registros,columnNumber,lower,upper)
