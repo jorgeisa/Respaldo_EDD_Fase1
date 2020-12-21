@@ -220,7 +220,6 @@ class BPLUS_TUPLE:
             self.__extractReg(nodo.get_chlds()[0], registros)
         else:
             for i in nodo.get_keys():
-                registros.append(i.value)
                 registros.append(i.register)
             if nodo.get_next() is not None:
                 self.__extractReg(nodo.get_next(),registros)
