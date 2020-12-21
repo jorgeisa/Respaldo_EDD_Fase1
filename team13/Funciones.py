@@ -424,6 +424,7 @@ def Load(nombre):
 
 #################### NO AGREGAR ############################
 def graficarTablas(database):
+    DataBase = Load("BD")
     dataB = DataBase.buscar(database)
     if dataB is None:
         return dataB

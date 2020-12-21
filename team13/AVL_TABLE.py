@@ -162,7 +162,7 @@ class AVL_TABLE:
         return nodo2
 
     def eliminar(self, name):
-        nodo = self.__eliminar(self.raiz, name)
+        self.raiz = self.__eliminar(self.raiz, name)
 
     def __eliminar(self, raiz, name):
 
