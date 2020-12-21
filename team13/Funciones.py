@@ -296,7 +296,7 @@ def dropTable(database, table):
             return 2
         tabla = BaseDatos.avlTable.buscar(table)
         if tabla is None:
-            return 2
+            return 3
         BaseDatos.avlTable.eliminar(table)
         Save(DataBase, "BD")
         return 0
