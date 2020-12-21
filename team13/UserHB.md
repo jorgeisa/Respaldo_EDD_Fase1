@@ -12,7 +12,7 @@ La pagina de inicio tiene como muestra tres botones. El boton "Funciones" lleva 
 
 
 
-![..](https://github.com/jorgeisa/Respaldo_EDD_Fase1/blob/main/team13/Inicio.png)
+![..](https://github.com/tytusdb/tytus/blob/main/storage/team13/images/Inicio.png)
 
 
 
@@ -23,7 +23,7 @@ disponibles y tambien tiene un boton "Ver Estructura" el cual muestra un grafico
 
 
 
-![..](https://github.com/jorgeisa/Respaldo_EDD_Fase1/blob/main/team13/BD.png)
+![..](https://github.com/tytusdb/tytus/blob/main/storage/team13/images/BD.png)
 
 
 
@@ -34,7 +34,7 @@ La ventana de "Tablas" contiene una lista desplegable con las tablas disponibles
 seleccionada anteriormente, como tambien incluye un boton "Ver Estructura" que muestra un grafico de la estructura de datos.
 
 
-![..](https://github.com/jorgeisa/Respaldo_EDD_Fase1/blob/main/team13/Tablas.png)
+![..](https://github.com/tytusdb/tytus/blob/main/storage/team13/images/Tablas.png)
 
 
 
@@ -43,7 +43,7 @@ seleccionada anteriormente, como tambien incluye un boton "Ver Estructura" que m
 La ventana de "Registros" tiene un boton que muestra todos los registros que se encuentran en la tabla seleccionada anteriormente, tambien incluye un boton "Ver Estructura" que muestra un grafico de la estructura de datos.
 
 
-![..](https://github.com/jorgeisa/Respaldo_EDD_Fase1/blob/main/team13/Registros.png)
+![..](https://github.com/tytusdb/tytus/blob/main/storage/team13/images/Registros.png)
 
 
 
@@ -53,7 +53,7 @@ La ventana de "Funciones" provee una herramienta al usuario para que pueda ser c
 En esta ventana, el usuario puede elegir la función a ejecutar de las solicitadas en el enunciado, están clasificadas como funciones de bases de datos, tablas y tuplas. 
 Al seleccionar una opción en la lista desplegable, la aplicación abrirá automáticamente una ventana con los datos que se necesitan para que la función sea ejecutada correctamente
 
-![..](https://github.com/jorgeisa/Respaldo_EDD_Fase1/blob/main/team13/Funciones.png)
+![..](https://github.com/tytusdb/tytus/blob/main/storage/team13/images/Funciones.png)
 
 
 
@@ -62,6 +62,6 @@ Al seleccionar una opción en la lista desplegable, la aplicación abrirá autom
 La ventana de "CSV" provee una herramienta para cargar varios registros a la vez a una base de datos y una tabla especificadas anteriormente. El archivo para cargar la informacion debe de ser de extension ".csv".
 
 
-![..](https://github.com/jorgeisa/Respaldo_EDD_Fase1/blob/main/team13/CSV.png)
+![..](https://github.com/tytusdb/tytus/blob/main/storage/team13/images/CSV.png)
 
 
