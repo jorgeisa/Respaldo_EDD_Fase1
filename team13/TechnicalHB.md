@@ -69,12 +69,12 @@ que se encuentra en la carpeta Data en el directorio del prototipo
 * Validacion De Llaves Primarias
 
 ## Diagrama General Del Prototipo
-![..](https://github.com/jorgeisa/Respaldo_EDD_Fase1/blob/main/team13/Arquitectura.png)
+![..](https://github.com/tytusdb/tytus/blob/main/storage/team13/images/Arquitectura.png)
 ---
 ---
 
 ## Diagrama De Clases Del Prototipo
-![..](https://github.com/jorgeisa/Respaldo_EDD_Fase1/blob/main/team13/Diagrama%20De%20Clases.png)
+![..](https://github.com/tytusdb/tytus/blob/main/storage/team13/images/Diagrama%20De%20Clases.png)
 ---
 ---
 
