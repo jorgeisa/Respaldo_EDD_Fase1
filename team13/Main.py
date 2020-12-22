@@ -1,33 +1,5 @@
-from BPLUS_TUPLE import BPLUS_TUPLE
-from Funciones import showDatabases
-from Funciones import *
 from timeit import default_timer
 import Funciones as j
-
-
-
-def Main():
-    tree = BPLUS_TUPLE(3, 2)
-
-    tree.j.insert([1, "A"])
-    tree.j.insert([2, "B"])
-    tree.j.insert([3, "C"])
-    tree.j.insert([4, "D"])
-    tree.j.insert([5, "E"])
-    tree.j.insert([6, "F"])
-    tree.j.insert([7, "G"])
-    tree.j.insert([8, "H"])
-
-    # Mostrando registros
-    print(tree.extractRow([1]))
-    print(tree.extractRow([2]))
-    print(tree.extractRow([3]))
-    print(tree.extractRow([4]))
-    print(tree.extractRow([5]))
-    print(tree.extractRow([6]))
-    print(tree.extractRow([7]))
-    print(tree.extractRow([8]))
-
 
 # Test para funciones
 def test():
@@ -545,7 +517,7 @@ def testShow(db, tabla):
     print("\nImprimiento Tablas", db)
     print(j.showTables(db))
     print("\nImprimiento Tuplas", db)
-    print(j.j.extractTable(db, tabla))
+    print(j.extractTable(db, tabla))
 
 
 # Main()
