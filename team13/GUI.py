@@ -3,6 +3,8 @@ from tkinter import ttk
 from tkinter import filedialog
 from tkinter import messagebox
 from Funciones import *
+from PIL import Image
+
 
 print(createDatabase('DB1'), end="-")
 print(createDatabase('DB2'), end="-")
@@ -61,6 +63,9 @@ def ventana_imagen(imagen):
         label.image = img
         label.grid(row=0, column=0)
         label.pack(side="bottom", fill="both", expand="yes")
+        
+        abrir_img = Image.open('../team13/' + imagen + '')
+        abrir_img.show()
     except:
         print('Imagen no existe')
 
