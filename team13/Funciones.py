@@ -331,8 +331,11 @@ def loadCSV(file, database, table):
             if base is not None:
                 tabla = base.avlTable.buscar(table)
                 if tabla is not None:
+                    archivo = open(file, 'r')
+                    registers = archivo.read()
+                    archivo.close()
                     results = []
-                    registers = file.split('\n')
+                    registers = registers.split('\n')
                     for i in registers:
                         register = i.split(',')
                         results.append(tabla.bPlus.insert(register))
