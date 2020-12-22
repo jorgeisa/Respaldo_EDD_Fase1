@@ -6,35 +6,35 @@ from Funciones import *
 from PIL import Image
 
 
-print(createDatabase('DB1'), end="-")
-print(createDatabase('DB2'), end="-")
-print(createDatabase('DB3'), end="-")
-print(createDatabase('DB4'), end="-")
-print(createDatabase('DB5'))
-
-print(createTable('DB2', 'Table1_DB2', 2), end="-")
-print(createTable('DB2', 'Table2_DB2', 2), end="-")
-print(createTable('DB2', 'Table3_DB2', 2), end="-")
-print(createTable('DB2', 'Table4_DB2', 2), end="-")
-print(createTable('DB2', 'Table5_DB2', 2), end="-")
-print(createTable('DB2', 'Table6_DB2', 2))
-
-# Creando tablas a DB4
-print("Creacion Tablas DB4:")
-print(createTable('DB4', 'Table1_DB4', 2), end="-")
-print(createTable('DB4', 'Table2_DB4', 2), end="-")
-print(createTable('DB4', 'Table3_DB4', 2), end="-")
-print(createTable('DB4', 'Table4_DB4', 2), end="-")
-print(createTable('DB4', 'Table5_DB4', 2), end="-")
-
-print(insert('DB4', 'Table1_DB4', ["sddd", "Manuel"]), end='-')
-print(insert('DB4', 'Table1_DB4', [2, "Gabriela"]), end='-')
-print(insert('DB4', 'Table1_DB4', [3, "Diego"]), end='-')
-print(insert('DB4', 'Table1_DB4', [4, "Diego2"]))
-print(insert('DB4', 'Table1_DB4', [5, "Diego3"]))
-
-print(insert('DB2', 'Table1_DB2', [4, "*****"]))
-print(insert('DB2', 'Table1_DB2', [5, "------"]))
+# print(createDatabase('DB1'), end="-")
+# print(createDatabase('DB2'), end="-")
+# print(createDatabase('DB3'), end="-")
+# print(createDatabase('DB4'), end="-")
+# print(createDatabase('DB5'))
+#
+# print(createTable('DB2', 'Table1_DB2', 2), end="-")
+# print(createTable('DB2', 'Table2_DB2', 2), end="-")
+# print(createTable('DB2', 'Table3_DB2', 2), end="-")
+# print(createTable('DB2', 'Table4_DB2', 2), end="-")
+# print(createTable('DB2', 'Table5_DB2', 2), end="-")
+# print(createTable('DB2', 'Table6_DB2', 2))
+#
+# # Creando tablas a DB4
+# print("Creacion Tablas DB4:")
+# print(createTable('DB4', 'Table1_DB4', 2), end="-")
+# print(createTable('DB4', 'Table2_DB4', 2), end="-")
+# print(createTable('DB4', 'Table3_DB4', 2), end="-")
+# print(createTable('DB4', 'Table4_DB4', 2), end="-")
+# print(createTable('DB4', 'Table5_DB4', 2), end="-")
+#
+# print(insert('DB4', 'Table1_DB4', ["sddd", "Manuel"]), end='-')
+# print(insert('DB4', 'Table1_DB4', [2, "Gabriela"]), end='-')
+# print(insert('DB4', 'Table1_DB4', [3, "Diego"]), end='-')
+# print(insert('DB4', 'Table1_DB4', [4, "Diego2"]))
+# print(insert('DB4', 'Table1_DB4', [5, "Diego3"]))
+#
+# print(insert('DB2', 'Table1_DB2', [4, "*****"]))
+# print(insert('DB2', 'Table1_DB2', [5, "------"]))
 
 def centrar_ventana(app, ancho, alto):
     app.config(width=ancho, height=alto)  # linen - light cyan - ghost white WhiteSmoke
