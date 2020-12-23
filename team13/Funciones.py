@@ -336,6 +336,7 @@ def loadCSV(file, database, table):
                     archivo.close()
                     results = []
                     registers = registers.split('\n')
+                    registers.pop()
                     for i in registers:
                         register = i.split(',')
                         results.append(tabla.bPlus.insert(register))
